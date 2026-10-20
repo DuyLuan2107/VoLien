@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nha Trang ✈️ Seoul | Kỷ Niệm 6 Tháng Yêu Nhau - Duy Luân & Hà Liên</title>
+  
+  <!-- SEO & Social OpenGraph -->
+  <meta property="og:title" content="Kỷ Niệm 6 Tháng Yêu Nhau | Chồng Luân ❤️ Vợ Liên">
+  <meta property="og:description" content="Nha Trang ✈️ Seoul • 3.650 km • Hai múi giờ, chung một nhịp đập">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Dancing Script, Playfair Display, Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 & TailwindCSS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at 50% 15%, #2a0b2d 0%, #11031b 45%, #05000a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .font-romantic {
+      font-family: 'Dancing Script', cursive;
+    }
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Hiệu ứng kính mờ thủy tinh Glassmorphism */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(236, 72, 153, 0.12);
+    }
+    .glass-card:hover {
+      border-color: rgba(244, 114, 182, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 114, 182, 0.25);
+    }
+
+    /* Đĩa than xoay tròn */
+    @keyframes spinDisc {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spinning {
+      animation: spinDisc 6s linear infinite;
+    }
+    .paused {
+      animation-play-state: paused;
+    }
+
+    /* Tim đập */
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.15); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.15); }
+      70% { transform: scale(1); }
+    }
+    .pulse-heart {
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    /* Hiệu ứng Polaroid */
+    .polaroid-card {
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .polaroid-card:hover {
+      transform: translateY(-8px) scale(1.03) rotate(0deg) !important;
+      z-index: 25;
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.35);
+    }
+
+    /* Ẩn scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <!-- ==================== NHẠC NỀN & NÚT ĐĨA THAN ==================== -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Nút đĩa than nổi ở góc trên bên phải -->
+  <div id="musicToggleBtn" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 flex items-center gap-2 cursor-pointer glass-card px-3 py-2 rounded-full border border-pink-500/30">
+    <div id="discVisual" class="w-8 h-8 rounded-full border-2 border-pink-400 flex items-center justify-center bg-gray-900 paused">
+      <i class="fa-solid fa-compact-disc text-pink-400 text-lg"></i>
+    </div>
+    <span id="musicText" class="text-xs text-pink-300 font-medium hidden sm:inline">Phát nhạc 🎵</span>
+  </div>
+
+  <!-- ==================== MÀN HÌNH MỞ ĐẦU (INTRO PHONG THƯ TÌNH YÊU) ==================== -->
+  <div id="introScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0d0114] px-4 transition-all duration-1000">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-pink-900/30 via-purple-950/40 to-black pointer-events-none"></div>
+    
+    <div class="relative z-10 text-center max-w-md mx-auto">
+      <div class="inline-block p-4 rounded-full bg-pink-500/10 border border-pink-500/30 mb-6 pulse-heart">
+        <i class="fa-solid fa-envelope-open-text text-5xl text-pink-400"></i>
+      </div>
+      <p class="text-pink-300 font-romantic text-2xl mb-2">Thư gửi Vợ yêu Hà Liên...</p>
+      <h1 class="text-3xl sm:text-4xl font-serif-title font-bold text-white mb-4 leading-tight">
+        Món Quà Kỷ Niệm 6 Tháng<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400">
+          Nha Trang ✈️ Seoul
+        </span>
+      </h1>
+      <p class="text-gray-400 text-sm mb-8 leading-relaxed">
+        Khoảng cách 3.650 km và 2 giờ chênh lệch không làm vơi đi tình yêu của chồng Luân dành cho vợ Liên...
+      </p>
+
+      <button onclick="openLoveGift()" class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full shadow-lg shadow-pink-600/40 hover:shadow-pink-500/60 hover:scale-105 active:scale-95 transition-all duration-300">
+        <span>Mở Món Quà Yêu Thương 💌</span>
+        <i class="fa-solid fa-heart text-pink-200 group-hover:scale-125 transition-transform"></i>
+      </button>
+      <p class="text-xs text-pink-300/60 mt-4 italic">Chạm vào nút để bật nhạc & mở thế giới của chúng mình ✨</p>
+    </div>
+  </div>
+
+  <!-- ==================== NỀN CANVAS TRÁI TIM MA THUẬT (3D PARTICLE) ==================== -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <canvas id="heartCanvas" class="w-full h-full opacity-60"></canvas>
+  </div>
+
+  <!-- ==================== NỘI DUNG CHÍNH (MAIN EXPERIENCE) ==================== -->
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-28">
+
+    <!-- 1. HERO HEADER: TÊN VÀ ĐƯỜNG BAY NHA TRANG - SEOUL -->
+    <section class="text-center mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs sm:text-sm mb-4">
+        <i class="fa-solid fa-sparkles text-pink-400"></i> Kỷ Niệm 6 Tháng Yêu Xa (25/04/2026 - 25/10/2026)
+      </div>
+      
+      <h1 class="text-4xl sm:text-6xl font-serif-title font-bold text-white mb-4 tracking-wide">
+        Duy Luân <span class="font-romantic text-pink-400 text-5xl sm:text-7xl">❤️</span> Hà Liên
+      </h1>
+      <p class="text-lg sm:text-2xl text-pink-200/90 font-romantic">
+        "Chồng Luân & Vợ Liên — Hai cơ thể, hai thành phố, chung một trái tim"
+      </p>
+
+      <!-- Đường bay trực quan Nha Trang ✈️ Seoul -->
+      <div class="mt-8 glass-card p-6 sm:p-8 rounded-3xl max-w-2xl mx-auto border border-pink-500/20">
+        <div class="flex items-center justify-between text-left sm:text-center">
+          <!-- Điểm Nha Trang -->
+          <div class="flex-1">
+            <div class="text-xs text-pink-300 uppercase tracking-widest font-semibold flex items-center gap-1.5 justify-start sm:justify-center">
+              <span>🇻🇳</span> Nha Trang
+            </div>
+            <div class="text-lg sm:text-xl font-bold text-white mt-1">Chồng Luân</div>
+            <div id="timeNhaTrang" class="text-xs text-pink-200/80 font-mono mt-0.5">--:--:-- GMT+7</div>
+          </div>
+
+          <!-- Đường bay & Máy bay biểu tượng -->
+          <div class="flex-1 px-3 text-center relative">
+            <div class="w-full border-b-2 border-dashed border-pink-400/50 relative top-3"></div>
+            <div class="relative inline-block bg-[#1a0826] px-2.5 py-1 rounded-full text-pink-400 text-xs border border-pink-500/40 z-10 pulse-heart">
+              <i class="fa-solid fa-plane text-sm transform -rotate-12"></i>
+              <span class="ml-1 font-mono font-bold">~3.650 km</span>
+            </div>
+            <div class="text-[10px] text-pink-300/80 mt-2">Chênh lệch 2 tiếng đồng hồ</div>
+          </div>
+
+          <!-- Điểm Seoul -->
+          <div class="flex-1 text-right sm:text-center">
+            <div class="text-xs text-pink-300 uppercase tracking-widest font-semibold flex items-center gap-1.5 justify-end sm:justify-center">
+              <span>🇰🇷</span> Seoul
+            </div>
+            <div class="text-lg sm:text-xl font-bold text-white mt-1">Vợ Liên</div>
+            <div id="timeSeoul" class="text-xs text-pink-200/80 font-mono mt-0.5">--:--:-- GMT+9</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BỘ ĐẾM THỜI GIAN YÊU NHAU (LOVE CLOCK TỪ 3H SÁNG 25/04/2026) -->
+    <section class="mb-16">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl sm:text-3xl font-serif-title font-semibold text-white">Chúng Mình Đã Yêu Nhau Được</h2>
+        <p class="text-xs sm:text-sm text-pink-300/80 mt-1">Kể từ 03:00 sáng, ngày 25 tháng 04 năm 2026</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+        <!-- Ngày -->
+        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-pink-500">
+          <div id="daysCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
+          <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Ngày Yêu</div>
+        </div>
+        <!-- Giờ -->
+        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-rose-400">
+          <div id="hoursCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
+          <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Giờ</div>
+        </div>
+        <!-- Phút -->
+        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-purple-400">
+          <div id="minutesCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
+          <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Phút</div>
+        </div>
+        <!-- Giây -->
+        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-pink-400">
+          <div id="secondsCount" class="text-3xl sm:text-5xl font-bold text-pink-400 font-mono animate-pulse">00</div>
+          <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Giây</div>
+        </div>
+      </div>
+
+      <p class="text-center text-base text-pink-200 font-romantic mt-5">
+        "Từng giây từng phút trôi qua, anh chưa từng ngừng thương và nhớ em..."
+      </p>
+    </section>
+
+    <!-- 3. BẢO TÀNG KÝ ỨC (ALBUM ĐỦ 23 BỨC ẢNH YÊU NHAU CÓ BỘ LỌC) -->
+    <section class="mb-20">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl sm:text-4xl font-serif-title font-bold text-white mb-2">
+          Hành Trình 6 Tháng & 23 Ký Ức
+        </h2>
+        <p class="text-sm text-pink-200/80 max-w-lg mx-auto">
+          Mỗi bức ảnh là một mảnh ghép tình yêu: từ bó hoa tốt nghiệp em trao, chiếc bánh Trung Thu gửi sang Hàn, đến những ngày cùng nhìn về một bầu trời.
+        </p>
+
+        <!-- Nút lọc Album -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+          <button onclick="filterPhotos('all')" class="photo-filter-btn active px-4 py-1.5 rounded-full text-xs font-semibold glass-card border border-pink-500 bg-pink-600/40 text-white transition-all">
+            Tất cả (23 ảnh)
+          </button>
+          <button onclick="filterPhotos('grad')" class="photo-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold glass-card border border-white/10 hover:border-pink-500/50 text-gray-300 transition-all">
+            🎓 Hoa Tốt Nghiệp
+          </button>
+          <button onclick="filterPhotos('mooncake')" class="photo-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold glass-card border border-white/10 hover:border-pink-500/50 text-gray-300 transition-all">
+            🥮 Bánh Trung Thu
+          </button>
+          <button onclick="filterPhotos('places')" class="photo-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold glass-card border border-white/10 hover:border-pink-500/50 text-gray-300 transition-all">
+            🏖️🗼 Nha Trang & Seoul
+          </button>
+          <button onclick="filterPhotos('daily')" class="photo-filter-btn px-4 py-1.5 rounded-full text-xs font-semibold glass-card border border-white/10 hover:border-pink-500/50 text-gray-300 transition-all">
+            📸 Đời Thường & Đôi Ta
+          </button>
+        </div>
+      </div>
+
+      <!-- Lưới ảnh Polaroid Style -->
+      <div id="photoGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Render bằng Javascript từ mảng 23 ảnh -->
+      </div>
+    </section>
+
+    <!-- 4. BỨC THƯ TÌNH TỰ GÕ CHỮ (TYPEWRITER LOVE LETTER) -->
+    <section class="mb-20">
+      <div class="glass-card max-w-2xl mx-auto rounded-3xl p-6 sm:p-10 border border-pink-500/30 relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex items-center gap-3 mb-6 border-b border-pink-500/20 pb-4">
+          <div class="w-10 h-10 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400">
+            <i class="fa-solid fa-heart-pulse text-lg"></i>
+          </div>
+          <div>
+            <h3 class="font-serif-title font-bold text-white text-lg">Bức Thư Gửi Vợ Liên</h3>
+            <p class="text-xs text-pink-300">Từ Nha Trang gửi đến Seoul lúc đêm khuya...</p>
+          </div>
+        </div>
+
+        <div class="font-romantic text-xl sm:text-2xl text-pink-100 leading-relaxed min-h-[180px]" id="typewriterText">
+          <!-- Text tự gõ sẽ xuất hiện ở đây -->
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-pink-500/20 flex items-center justify-between text-xs text-pink-300/80">
+          <span>Kỷ niệm nửa năm yêu xa (6 Tháng)</span>
+          <span class="font-bold text-pink-300">Chồng Luân thương vợ Liên ❤️</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EASTER EGG: CÂU HỎI VUI "EM CÓ YÊU CHỒNG LUÂN MÃI MÃI KHÔNG?" -->
+    <section class="text-center max-w-md mx-auto glass-card p-8 rounded-3xl border border-pink-500/30">
+      <div class="text-3xl mb-3">🥺👉👈</div>
+      <h3 class="text-xl sm:text-2xl font-serif-title font-bold text-white mb-2">
+        Vợ Liên có yêu Chồng Luân mãi mãi không?
+      </h3>
+      <p class="text-xs text-pink-300/80 mb-6">Trả lời thật lòng nha, không được bấm nút "Không" đâu đấy!</p>
+
+      <div class="flex items-center justify-center gap-4 relative min-h-[60px]">
+        <!-- Nút Có: Bấm vào nổ Confetti bung nóc -->
+        <button onclick="handleLoveYes()" class="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full shadow-lg shadow-pink-500/40 hover:scale-110 active:scale-95 transition-all text-sm">
+          Yêu Nhiều Lắmmm ❤️
+        </button>
+
+        <!-- Nút Không: Di chuột hoặc chạm vào là chạy trốn -->
+        <button id="runawayBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-6 py-2.5 bg-gray-700/80 text-gray-300 font-semibold rounded-full text-sm transition-all duration-200">
+          Hong yêu đâu 😜
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER LÃNG MẠN -->
+    <footer class="text-center mt-20 text-xs text-gray-500">
+      <p>Made with ❤️ by Duy Luân for Hà Liên</p>
+      <p class="mt-1 text-pink-400/60 font-romantic text-sm">Nha Trang ✈️ Seoul • 25/04/2026 - Mãi Mãi</p>
+    </footer>
+  </main>
+
+  <!-- ==================== MODAL XEM ẢNH PHÓNG TO (LIGHTBOX) ==================== -->
+  <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 hidden backdrop-blur-md flex items-center justify-center p-4">
+    <button onclick="closeModal()" class="absolute top-5 right-5 text-white/80 hover:text-white text-3xl z-50 p-2">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Nút Lùi ảnh -->
+    <button onclick="prevPhoto()" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl sm:text-3xl z-50 bg-white/10 p-3 rounded-full hover:bg-pink-600/50 transition-all">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Nút Tiến ảnh -->
+    <button onclick="nextPhoto()" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl sm:text-3xl z-50 bg-white/10 p-3 rounded-full hover:bg-pink-600/50 transition-all">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+    <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center">
+      <img id="modalImg" src="" alt="Kỷ niệm" class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl border border-white/10">
+      <p id="modalCaption" class="text-pink-200 text-center font-romantic text-xl sm:text-2xl mt-4 px-4 max-w-xl"></p>
+      <span id="modalIndex" class="text-xs text-gray-400 mt-1 font-mono"></span>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ĐIỀU KHIỂN ==================== -->
+  <script>
+    /* ================= 1. DANH SÁCH 23 BỨC ẢNH THẬT TRONG FOLDER YeuNhau ================= */
+    const memories = [
+      // 🎓 Nhóm 1: Hoa tốt nghiệp & Cột mốc
+      { src: "YeuNhau/IMG20260713104135.jpg", cat: "grad", caption: "Bó hoa tốt nghiệp - Tình yêu và niềm tự hào em gửi trọn cho anh 🎓💐" },
+      { src: "YeuNhau/IMG20260721171037.jpg", cat: "grad", caption: "Dù cách ngàn dặm, em vẫn luôn hiện diện trong từng cột mốc của anh." },
+      { src: "YeuNhau/ChatGPT_Image_20_07_2026.png", cat: "grad", caption: "Khoảnh khắc ý nghĩa ghi dấu tình yêu của Luân và Liên." },
+
+      // 🥮 Nhóm 2: Bánh Trung Thu & Ngọt Ngào
+      { src: "YeuNhau/IMG20260922170926.jpg", cat: "mooncake", caption: "Gửi chiếc bánh Trung Thu sang Seoul để vợ đón Tết đoàn viên ngọt ngào 🥮🌕" },
+      { src: "YeuNhau/IMG_20261002_201042.jpg", cat: "mooncake", caption: "Mùa trăng xa nhau nhưng hai đứa cùng ngắm chung một ánh trăng sáng." },
+      { src: "YeuNhau/IMG_20261020_215228.jpg", cat: "mooncake", caption: "Hương vị ngọt ngào như chính tình yêu của hai ta." },
+
+      // 🏖️🗼 Nhóm 3: Nha Trang & Seoul (Cùng chung bầu trời)
+      { src: "YeuNhau/IMG20260512143125.jpg", cat: "places", caption: "Nha Trang biển xanh gửi chút nắng ấm sang Seoul cho công chúa 🏖️" },
+      { src: "YeuNhau/IMG_20261020_221108.jpg", cat: "places", caption: "Seoul lung linh ánh đèn - Nơi có cô gái nhỏ anh thương đang cố gắng mỗi ngày 🗼" },
+      { src: "YeuNhau/IMG_20261020_221126.jpg", cat: "places", caption: "Khoảng cách địa lý chỉ làm tình yêu của chúng mình thêm kiên định." },
+      { src: "YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg", cat: "places", caption: "Một góc thành phố và những kỷ niệm cùng nhìn về một hướng." },
+      { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg", cat: "places", caption: "Hai thành phố, hai múi giờ nhưng chung một nhịp đập trái tim." },
+
+      // 📸 Nhóm 4: Đời thường & Facetime
+      { src: "YeuNhau/Messenger_creation_0482589F-6F61-4584-9731-2617EBC9BA6D.jpeg", cat: "daily", caption: "Nụ cười rạng rỡ của vợ Liên qua màn hình Facetime ❤️" },
+      { src: "YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg", cat: "daily", caption: "Từng ánh mắt, nụ cười làm tan biến mọi mệt mỏi trong anh." },
+      { src: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg", cat: "daily", caption: "Những lần chuyện trò thâu đêm mà không muốn tắt máy." },
+      { src: "YeuNhau/Messenger_creation_6309E6F4-A988-41D8-87CF-8A9C1449E714.jpeg", cat: "daily", caption: "Dáng vẻ đáng yêu của công chúa khi hờn dỗi chồng Luân." },
+      { src: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg", cat: "daily", caption: "Từng bức ảnh đời thường gửi nhau mỗi sáng thức dậy." },
+      { src: "YeuNhau/Messenger_creation_8D0F4503-CD73-4013-8C4A-913AF4FA691F.jpeg", cat: "daily", caption: "Hôm nay em ăn gì, làm gì - Mọi khoảnh khắc nhỏ bé đều vô giá." },
+      { src: "YeuNhau/Messenger_creation_C43FFDE3-B947-4D59-BDB9-F414DE11DC90.jpeg", cat: "daily", caption: "Những cử chỉ dễ thương chỉ dành riêng cho chồng Luân." },
+      { src: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg", cat: "daily", caption: "Hạnh phúc đơn giản là thấy em mỉm cười qua chiếc màn hình nhỏ." },
+      { src: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg", cat: "daily", caption: "Cùng nhau vượt qua những ngày nhớ nhung da diết." },
+      { src: "YeuNhau/Messenger_creation_E07EA6FA-7F0D-48BF-BABA-BF1A98074EE5.jpeg", cat: "daily", caption: "Lời hứa cho ngày đoàn tụ không còn xa nữa." },
+      { src: "YeuNhau/Messenger_creation_E59E966D-6E54-478A-B668-23BF2C23C32D.jpeg", cat: "daily", caption: "Chăm chỉ ở Hàn Quốc nhé, anh luôn đứng sau bảo vệ em." },
+      { src: "YeuNhau/received_1744351716732597.jpeg", cat: "daily", caption: "Kỷ niệm nửa năm ngọt ngào - Chồng Luân mãi yêu Vợ Liên! ❤️" }
+    ];
+
+    let currentFilter = 'all';
+    let currentFilteredMemories = [...memories];
+    let currentModalIndex = 0;
+
+    /* ================= 2. HIỂN THỊ LƯỚI ẢNH POLAROID ================= */
+    const photoGrid = document.getElementById('photoGrid');
+
+    function renderPhotos(filter = 'all') {
+      currentFilter = filter;
+      photoGrid.innerHTML = '';
+      currentFilteredMemories = memories.filter(item => filter === 'all' || item.cat === filter);
+      const angles = [-3, 2, -2, 3, -1, 2, -2, 1];
+
+      currentFilteredMemories.forEach((item, index) => {
+        const tilt = angles[index % angles.length];
+        const card = document.createElement('div');
+        card.className = `polaroid-card glass-card p-3 rounded-2xl cursor-pointer transition-all duration-300`;
+        card.style.transform = `rotate(${tilt}deg)`;
+        card.onclick = () => openModalByIndex(index);
+
+        card.innerHTML = `
+          <div class="w-full aspect-[4/5] rounded-xl overflow-hidden bg-black/40 relative">
+            <img 
+              src="${encodeURI(item.src)}" 
+              alt="Kỷ niệm ${index + 1}" 
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              loading="lazy"
+            >
+            <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full text-[10px] text-pink-300 font-mono">
+              #${index + 1}
+            </div>
+          </div>
+          <p class="text-xs text-gray-200 font-romantic text-center mt-2.5 line-clamp-2 px-1">
+            ${item.caption}
+          </p>
+        `;
+        photoGrid.appendChild(card);
+      });
+    }
+
+    function filterPhotos(cat) {
+      document.querySelectorAll('.photo-filter-btn').forEach(btn => {
+        btn.classList.remove('bg-pink-600/40', 'border-pink-500', 'text-white');
+        btn.classList.add('border-white/10', 'text-gray-300');
+      });
+      event.target.classList.remove('border-white/10', 'text-gray-300');
+      event.target.classList.add('bg-pink-600/40', 'border-pink-500', 'text-white');
+      renderPhotos(cat);
+    }
+
+    /* ================= 3. LIGHTBOX XEM ẢNH & CHUYỂN ẢNH ================= */
+    const imageModal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalIndex = document.getElementById('modalIndex');
+
+    function openModalByIndex(idx) {
+      currentModalIndex = idx;
+      updateModalContent();
+      imageModal.classList.remove('hidden');
+    }
+
+    function updateModalContent() {
+      const item = currentFilteredMemories[currentModalIndex];
+      if (!item) return;
+      modalImg.src = encodeURI(item.src);
+      modalCaption.innerText = item.caption;
+      modalIndex.innerText = `${currentModalIndex + 1} / ${currentFilteredMemories.length}`;
+    }
+
+    function nextPhoto() {
+      currentModalIndex = (currentModalIndex + 1) % currentFilteredMemories.length;
+      updateModalContent();
+    }
+
+    function prevPhoto() {
+      currentModalIndex = (currentModalIndex - 1 + currentFilteredMemories.length) % currentFilteredMemories.length;
+      updateModalContent();
+    }
+
+    function closeModal() {
+      imageModal.classList.add('hidden');
+    }
+
+    imageModal.onclick = (e) => {
+      if (e.target === imageModal) closeModal();
+    };
+
+    // Hỗ trợ phím mũi tên bàn phím
+    window.addEventListener('keydown', (e) => {
+      if (imageModal.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ================= 4. MỞ QUÀ & AUTOPLAY NHẠC ================= */
+    let isPlaying = false;
+    const bgMusic = document.getElementById('bgMusic');
+    const discVisual = document.getElementById('discVisual');
+    const musicText = document.getElementById('musicText');
+
+    function openLoveGift() {
+      // Pháo hoa Confetti
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#f43f5e', '#ec4899', '#d946ef', '#ffffff', '#fbbf24']
+      });
+
+      // Phát nhạc
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        discVisual.classList.remove('paused');
+        musicText.innerText = 'Đang phát 🎵';
+      }).catch(err => {
+        console.log("Audio play caught:", err);
+      });
+
+      // Mờ dần Intro
+      const intro = document.getElementById('introScreen');
+      intro.style.opacity = '0';
+      setTimeout(() => {
+        intro.style.display = 'none';
+        startTypewriter();
+      }, 1000);
+    }
+
+    function toggleMusic() {
+      if (isPlaying) {
+        bgMusic.pause();
+        discVisual.classList.add('paused');
+        musicText.innerText = 'Tạm dừng ⏸️';
+      } else {
+        bgMusic.play();
+        discVisual.classList.remove('paused');
+        musicText.innerText = 'Đang phát 🎵';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    /* ================= 5. ĐỒNG HỒ 2 MÚI GIỜ REAL-TIME ================= */
+    function updateDualClocks() {
+      const now = new Date();
+      // Giờ Nha Trang (GMT+7)
+      const nhaTrangTime = new Intl.DateTimeFormat('vi-VN', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(now);
+      document.getElementById('timeNhaTrang').innerText = `${nhaTrangTime} (GMT+7)`;
+
+      // Giờ Seoul (GMT+9)
+      const seoulTime = new Intl.DateTimeFormat('ko-KR', {
+        timeZone: 'Asia/Seoul',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(now);
+      document.getElementById('timeSeoul').innerText = `${seoulTime} (GMT+9)`;
+    }
+    setInterval(updateDualClocks, 1000);
+    updateDualClocks();
+
+    /* ================= 6. BỘ ĐẾM THỜI GIAN TỪ 3H SÁNG 25/04/2026 ================= */
+    const startDate = new Date('2026-04-25T03:00:00+07:00').getTime();
+
+    function updateLoveCounter() {
+      const now = new Date().getTime();
+      const diff = now - startDate;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('daysCount').innerText = String(days).padStart(2, '0');
+        document.getElementById('hoursCount').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutesCount').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('secondsCount').innerText = String(seconds).padStart(2, '0');
+      } else {
+        // Fallback hiển thị mốc 6 tháng (182 ngày)
+        document.getElementById('daysCount').innerText = "182";
+        document.getElementById('hoursCount').innerText = "00";
+        document.getElementById('minutesCount').innerText = "00";
+        document.getElementById('secondsCount').innerText = "00";
+      }
+    }
+    setInterval(updateLoveCounter, 1000);
+    updateLoveCounter();
+
+    /* ================= 7. HIỆU ỨNG GÕ CHỮ THƯ TÌNH (TYPEWRITER) ================= */
+    const letter = `Vợ Liên yêu dấu của anh,\n\nNhanh thật đấy, vậy là chúng mình đã cùng nhau đi qua 6 tháng yêu xa rồi. 3.650 cây số và 2 tiếng chênh lệch chưa một giây nào làm vơi đi sự ngọt ngào mà anh dành cho em.\n\nCảm ơn em vì bó hoa tốt nghiệp em gửi từ nơi phương xa, cảm ơn những nụ cười của em qua màn hình Facetime mỗi tối. Dù em ở Seoul tuyết lạnh còn anh ở Nha Trang biển xanh, anh luôn tin rằng chỉ cần trái tim hướng về nhau thì khoảng cách địa lý chỉ là một con số thử thách.\n\nỞ bên Hàn hãy ăn uống đầy đủ, mặc thật ấm và luôn nhớ rằng: ở Việt Nam, chồng Luân yêu vợ Liên nhiều hơn tất cả mọi điều! Chờ anh nhé, ngày gặp lại không còn xa đâu... ❤️`;
+
+    let charIndex = 0;
+    function startTypewriter() {
+      const el = document.getElementById('typewriterText');
+      el.innerHTML = '';
+      function type() {
+        if (charIndex < letter.length) {
+          const char = letter.charAt(charIndex);
+          el.innerHTML += char === '\n' ? '<br>' : char;
+          charIndex++;
+          setTimeout(type, 35);
+        }
+      }
+      type();
+    }
+
+    /* ================= 8. EASTER EGG: NÚT "KHÔNG" CHẠY TRỐN ================= */
+    const runawayBtn = document.getElementById('runawayBtn');
+    function dodgeButton() {
+      const x = Math.random() * 220 - 110;
+      const y = Math.random() * 120 - 60;
+      runawayBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function handleLoveYes() {
+      confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 },
+        colors: ['#ff0055', '#ff77aa', '#ffffff', '#ffd700']
+      });
+      alert("Chồng Luân cũng yêu Vợ Liên nhất trần đời! Yêu mãi mãi luôn ❤️");
+    }
+
+    /* ================= 9. CANVAS TRÁI TIM MA THUẬT (3D PARAMETRIC HEART) ================= */
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const particles = [];
+    const numParticles = 450;
+
+    function getHeartPoint(t, scale) {
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+      return { x: x * scale, y: y * scale };
+    }
+
+    class HeartParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.t = Math.random() * Math.PI * 2;
+        this.scale = 8 + Math.random() * 6;
+        const target = getHeartPoint(this.t, this.scale);
+        this.x = canvas.width / 2 + target.x + (Math.random() - 0.5) * 20;
+        this.y = canvas.height / 2 + target.y + (Math.random() - 0.5) * 20;
+        this.size = Math.random() * 2 + 1;
+        this.alpha = Math.random() * 0.7 + 0.3;
+        this.speed = Math.random() * 0.02 + 0.01;
+        this.color = Math.random() > 0.3 ? '#f43f5e' : (Math.random() > 0.5 ? '#ec4899' : '#d946ef');
+      }
+      update(pulse) {
+        this.t += this.speed;
+        const target = getHeartPoint(this.t, this.scale * pulse);
+        this.x = canvas.width / 2 + target.x;
+        this.y = canvas.height / 2 + target.y;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(new HeartParticle());
+    }
+
+    let pulseTime = 0;
+    function animateHeart() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pulseTime += 0.04;
+      const pulse = 1 + 0.08 * Math.sin(pulseTime);
+
+      particles.forEach(p => {
+        p.update(pulse);
+        p.draw();
+      });
+      requestAnimationFrame(animateHeart);
+    }
+    animateHeart();
+
+    // Khởi tạo hiển thị
+    renderPhotos('all');
+  </script>
+</body>
+</html>
