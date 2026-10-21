@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Nơi Này Có Anh | Nha Trang ✈️ Seoul - Chồng Luân ❤️ Vợ Liên</title>
   
   <!-- SEO & OpenGraph -->
@@ -10,7 +10,7 @@
   <meta property="og:description" content="Nha Trang ✈️ Seoul • Nơi Này Có Anh - Sơn Tùng M-TP • 3.650 km • Hai múi giờ, một nhịp đập">
   <meta property="og:type" content="website">
 
-  <!-- Google Fonts lãng mạn: Dancing Script, Playfair Display, Montserrat -->
+  <!-- Google Fonts: Dancing Script, Playfair Display, Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -29,16 +29,16 @@
       font-family: 'Montserrat', sans-serif;
       background: radial-gradient(circle at 50% 10%, #35083a 0%, #140320 40%, #05000a 100%);
       color: #fff;
-      overflow-x: hidden;
       margin: 0;
       padding: 0;
+      -webkit-font-smoothing: antialiased;
     }
     .font-romantic { font-family: 'Dancing Script', cursive; }
     .font-serif-title { font-family: 'Playfair Display', serif; }
     
-    /* Hiệu ứng kính mờ Glassmorphism */
+    /* Hiệu ứng kính mờ Glassmorphism tương thích iOS */
     .glass-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -83,11 +83,12 @@
     }
     .pulse-heart { animation: heartbeat 2s infinite ease-in-out; }
 
-    /* ================= 3D ORBIT CYLINDER (VÒNG XOAY ẢNH 3D BAY TRONG KHÔNG GIAN) ================= */
+    /* ================= 3D ORBIT CYLINDER (TỐI ƯU 100% CHO IPHONE 11 & SAFARI) ================= */
     .carousel-container {
-      perspective: 1200px;
+      perspective: 1000px;
+      -webkit-perspective: 1000px;
       width: 100%;
-      height: 420px;
+      height: 380px;
       position: relative;
       display: flex;
       justify-content: center;
@@ -99,31 +100,44 @@
     .carousel-container:active { cursor: grabbing; }
 
     .carousel-3d {
-      width: 190px;
-      height: 260px;
+      width: 150px;
+      height: 210px;
       position: absolute;
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
       transition: transform 0.1s ease-out;
+    }
+
+    @media (min-width: 640px) {
+      .carousel-3d {
+        width: 180px;
+        height: 250px;
+      }
+      .carousel-container {
+        height: 420px;
+      }
     }
 
     .carousel-item {
       position: absolute;
-      width: 190px;
-      height: 260px;
+      width: 100%;
+      height: 100%;
       left: 0;
       top: 0;
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
-      border: 2px solid rgba(244, 114, 182, 0.4);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(236, 72, 153, 0.3);
+      border: 2px solid rgba(244, 114, 182, 0.45);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 20px rgba(236, 72, 153, 0.25);
       cursor: pointer;
-      transition: filter 0.3s, border-color 0.3s, transform 0.3s;
       background: #111;
       backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
     .carousel-item:hover {
       border-color: #f43f5e;
-      filter: brightness(1.2);
+      filter: brightness(1.15);
     }
     .carousel-item img {
       width: 100%;
@@ -142,6 +156,7 @@
       opacity: 0;
       pointer-events: none;
       animation: shoot 5s ease-in-out infinite;
+      z-index: 1;
     }
     @keyframes shoot {
       0% { transform: translate(120px, -120px) rotate(-45deg); opacity: 0; }
@@ -156,12 +171,13 @@
       pointer-events: none;
       background: #fbcfe8;
       border-radius: 150% 0 150% 0;
-      opacity: 0.6;
-      animation: sakuraFall 10s linear infinite;
+      opacity: 0.65;
+      animation: sakuraFall 9s linear infinite;
+      z-index: 1;
     }
     @keyframes sakuraFall {
       0% { transform: translate(0, -10px) rotate(0deg); opacity: 0.8; }
-      100% { transform: translate(150px, 105vh) rotate(720deg); opacity: 0; }
+      100% { transform: translate(130px, 105vh) rotate(720deg); opacity: 0; }
     }
   </style>
 </head>
@@ -171,8 +187,8 @@
   <div class="shooting-star" style="top: 12%; left: 75%; animation-delay: 1.5s;"></div>
   <div class="shooting-star" style="top: 32%; left: 55%; animation-delay: 4.5s;"></div>
 
-  <!-- NHẠC NỀN: NƠI NÀY CÓ ANH - SƠN TÙNG M-TP -->
-  <audio id="bgMusic" loop preload="auto">
+  <!-- NHẠC NỀN CHÍNH THỨC: NƠI NÀY CÓ ANH - SƠN TÙNG M-TP (BẢN GỐC BALLAD) -->
+  <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
     <source src="music.mp3" type="audio/mp3">
   </audio>
 
@@ -188,7 +204,7 @@
       <div class="eq-bar"></div>
       <div class="eq-bar"></div>
     </div>
-    <span id="musicText" class="text-xs text-pink-300 font-medium">Nơi Này Có Anh 🎵</span>
+    <span id="musicText" class="text-xs text-pink-300 font-medium hidden sm:inline">Nơi Này Có Anh 🎵</span>
   </div>
 
   <!-- ==================== MÀN HÌNH MỞ ĐẦU (INTRO PHONG THƯ TÌNH YÊU) ==================== -->
@@ -210,11 +226,11 @@
         3.650 km không thể ngăn cách nhịp đập của hai trái tim. Chạm để mở món quà 6 tháng của chồng Luân...
       </p>
 
-      <button onclick="openLoveGift()" class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full shadow-lg shadow-pink-600/40 hover:scale-105 active:scale-95 transition-all">
+      <button id="openGiftBtn" onclick="openLoveGift()" class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full shadow-lg shadow-pink-600/40 hover:scale-105 active:scale-95 transition-all">
         <span>Mở Món Quà Kỷ Niệm 💌</span>
         <i class="fa-solid fa-heart text-pink-200 group-hover:scale-125 transition-transform"></i>
       </button>
-      <p class="text-xs text-pink-300/60 mt-4 italic">Bật loa để lắng nghe bài hát "Nơi Này Có Anh" dành riêng cho em ✨</p>
+      <p class="text-xs text-pink-300/60 mt-4 italic">Bật loa để lắng nghe bài hát "Nơi Này Có Anh" (Sơn Tùng M-TP) ✨</p>
     </div>
   </div>
 
@@ -239,24 +255,24 @@
       </p>
 
       <!-- Đường bay trực quan Nha Trang ✈️ Seoul -->
-      <div class="mt-8 glass-card p-6 sm:p-8 rounded-3xl max-w-2xl mx-auto border border-pink-500/20">
+      <div class="mt-8 glass-card p-5 sm:p-8 rounded-3xl max-w-2xl mx-auto border border-pink-500/20">
         <div class="flex items-center justify-between text-left sm:text-center">
           <div class="flex-1">
             <div class="text-xs text-pink-300 uppercase tracking-widest font-semibold">🇻🇳 Nha Trang</div>
-            <div class="text-lg sm:text-xl font-bold text-white mt-1">Chồng Luân</div>
+            <div class="text-base sm:text-xl font-bold text-white mt-1">Chồng Luân</div>
             <div id="timeNhaTrang" class="text-xs text-pink-200/80 font-mono mt-0.5">--:--:-- GMT+7</div>
           </div>
-          <div class="flex-1 px-3 text-center relative">
+          <div class="flex-1 px-2 sm:px-3 text-center relative">
             <div class="w-full border-b-2 border-dashed border-pink-400/50 relative top-3"></div>
             <div class="relative inline-block bg-[#1a0826] px-2.5 py-1 rounded-full text-pink-400 text-xs border border-pink-500/40 z-10 pulse-heart">
-              <i class="fa-solid fa-plane text-sm transform -rotate-12"></i>
-              <span class="ml-1 font-mono font-bold">~3.650 km</span>
+              <i class="fa-solid fa-plane text-xs sm:text-sm transform -rotate-12"></i>
+              <span class="ml-1 font-mono font-bold text-[10px] sm:text-xs">~3.650 km</span>
             </div>
-            <div class="text-[10px] text-pink-300/80 mt-2">Chênh lệch 2 tiếng đồng hồ</div>
+            <div class="text-[9px] sm:text-[10px] text-pink-300/80 mt-2">Chênh lệch 2 tiếng</div>
           </div>
           <div class="flex-1 text-right sm:text-center">
             <div class="text-xs text-pink-300 uppercase tracking-widest font-semibold">🇰🇷 Seoul</div>
-            <div class="text-lg sm:text-xl font-bold text-white mt-1">Vợ Liên</div>
+            <div class="text-base sm:text-xl font-bold text-white mt-1">Vợ Liên</div>
             <div id="timeSeoul" class="text-xs text-pink-200/80 font-mono mt-0.5">--:--:-- GMT+9</div>
           </div>
         </div>
@@ -270,20 +286,20 @@
         <p class="text-xs sm:text-sm text-pink-300/80 mt-1">Khoảnh khắc 03:00 sáng, ngày 25 tháng 04 năm 2026</p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-pink-500">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
+        <div class="glass-card p-4 sm:p-5 rounded-2xl text-center border-t-2 border-pink-500">
           <div id="daysCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
           <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Ngày Yêu</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-rose-400">
+        <div class="glass-card p-4 sm:p-5 rounded-2xl text-center border-t-2 border-rose-400">
           <div id="hoursCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
           <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Giờ</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-purple-400">
+        <div class="glass-card p-4 sm:p-5 rounded-2xl text-center border-t-2 border-purple-400">
           <div id="minutesCount" class="text-3xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-pink-300 font-mono">00</div>
           <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Phút</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl text-center border-t-2 border-pink-400">
+        <div class="glass-card p-4 sm:p-5 rounded-2xl text-center border-t-2 border-pink-400">
           <div id="secondsCount" class="text-3xl sm:text-5xl font-bold text-pink-400 font-mono animate-pulse">00</div>
           <div class="text-xs text-pink-300 uppercase tracking-wider mt-2 font-medium">Giây</div>
         </div>
@@ -299,7 +315,7 @@
         Những Kỷ Niệm Bay Lơ Lửng 🪐
       </h2>
       <p class="text-xs sm:text-sm text-pink-300/80 mb-6">
-        👉 <i>Dùng ngón tay vuốt xoay 360 độ (hoặc kéo chuột) • Bấm vào bất kỳ ảnh nào để xem phóng to HD</i>
+        👉 <i>Dùng ngón tay vuốt xoay 360 độ trên iPhone • Chạm vào ảnh để phóng to HD</i>
       </p>
 
       <div class="carousel-container" id="carouselContainer">
@@ -309,7 +325,7 @@
       </div>
     </section>
 
-    <!-- ==================== MỤC MỚI: CÁC CẶP ẢNH ĐÔI ĐỒNG ĐIỆU (COUPLE SYNC) ==================== -->
+    <!-- ==================== MỤC: CÁC CẶP ẢNH ĐÔI ĐỒNG ĐIỆU (COUPLE SYNC) ==================== -->
     <section class="mb-24">
       <div class="text-center mb-10">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs mb-3">
@@ -323,67 +339,67 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
         <!-- Cặp ảnh đôi 1: Nụ cười qua màn hình -->
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
-          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-2">
+        <div class="glass-card p-4 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
+          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-1">
             <span>🇻🇳 Luân (Nha Trang)</span>
             <span class="text-pink-400 px-2 py-0.5 rounded-full bg-pink-500/20 text-xs"><i class="fa-solid fa-heart pulse-heart"></i> Chung Nhịp Đập</span>
             <span>🇰🇷 Liên (Seoul)</span>
           </div>
           <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden bg-black/40">
-            <img src="YeuNhau/IMG_20261020_221108.jpg" alt="Luân" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Chồng Luân mỉm cười hạnh phúc')">
-            <img src="YeuNhau/IMG_20261020_221126.jpg" alt="Liên" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Vợ Liên rạng rỡ từ Seoul')">
+            <img src="YeuNhau/IMG_20261020_221108.jpg" alt="Luân" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Chồng Luân mỉm cười hạnh phúc')">
+            <img src="YeuNhau/IMG_20261020_221126.jpg" alt="Liên" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Vợ Liên rạng rỡ từ Seoul')">
           </div>
-          <p class="text-center font-romantic text-lg sm:text-xl text-pink-200 mt-4">
+          <p class="text-center font-romantic text-base sm:text-xl text-pink-200 mt-3 sm:mt-4">
             "Cùng một khoảnh khắc, cùng một nụ cười ấm áp dành riêng cho đối phương."
           </p>
         </div>
 
         <!-- Cặp ảnh đôi 2: Cuộc gọi đêm muộn -->
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
-          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-2">
+        <div class="glass-card p-4 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
+          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-1">
             <span>📱 Cuộc gọi Facetime #1</span>
             <span class="text-pink-400 px-2 py-0.5 rounded-full bg-pink-500/20 text-xs"><i class="fa-solid fa-heart pulse-heart"></i> Thâu Đêm</span>
             <span>📱 Cuộc gọi Facetime #2</span>
           </div>
           <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden bg-black/40">
-            <img src="YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 1" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Những câu chuyện không bao giờ hết')">
-            <img src="YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 2" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Nhìn thấy em là quên hết mệt mỏi')">
+            <img src="YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 1" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Những câu chuyện không bao giờ hết')">
+            <img src="YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 2" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Nhìn thấy em là quên hết mệt mỏi')">
           </div>
-          <p class="text-center font-romantic text-lg sm:text-xl text-pink-200 mt-4">
+          <p class="text-center font-romantic text-base sm:text-xl text-pink-200 mt-3 sm:mt-4">
             "Những đêm trò chuyện tới tận 3 giờ sáng chẳng nỡ cúp máy..."
           </p>
         </div>
 
         <!-- Cặp ảnh đôi 3: Cử chỉ đáng yêu -->
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
-          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-2">
+        <div class="glass-card p-4 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
+          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-1">
             <span>📸 Khoảnh khắc ngọt ngào 1</span>
             <span class="text-pink-400 px-2 py-0.5 rounded-full bg-pink-500/20 text-xs"><i class="fa-solid fa-heart pulse-heart"></i> Dễ Thương</span>
             <span>📸 Khoảnh khắc ngọt ngào 2</span>
           </div>
           <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden bg-black/40">
-            <img src="YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg" alt="Pose 1" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Cử chỉ đáng yêu của vợ Liên')">
-            <img src="YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg" alt="Pose 2" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Hạnh phúc ngập tràn qua từng khung hình')">
+            <img src="YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg" alt="Pose 1" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Cử chỉ đáng yêu của vợ Liên')">
+            <img src="YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg" alt="Pose 2" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Hạnh phúc ngập tràn qua từng khung hình')">
           </div>
-          <p class="text-center font-romantic text-lg sm:text-xl text-pink-200 mt-4">
+          <p class="text-center font-romantic text-base sm:text-xl text-pink-200 mt-3 sm:mt-4">
             "Hai nửa mảnh ghép hoàn hảo tạo nên tình yêu của Luân và Liên."
           </p>
         </div>
 
         <!-- Cặp ảnh đôi 4: Cột mốc & Món quà -->
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
-          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-2">
+        <div class="glass-card p-4 sm:p-6 rounded-3xl border border-pink-500/30 relative hover:border-pink-500/60 transition-all">
+          <div class="flex items-center justify-between mb-3 text-xs text-pink-300 font-semibold px-1">
             <span>🎓 Hoa Tốt Nghiệp Em Trao</span>
             <span class="text-pink-400 px-2 py-0.5 rounded-full bg-pink-500/20 text-xs"><i class="fa-solid fa-heart pulse-heart"></i> Kỷ Vật</span>
             <span>🥮 Bánh Trung Thu Anh Gửi</span>
           </div>
           <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden bg-black/40">
-            <img src="YeuNhau/IMG20260713104135.jpg" alt="Hoa" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Bó hoa tốt nghiệp đong đầy tình cảm')">
-            <img src="YeuNhau/IMG20260922170926.jpg" alt="Bánh" class="w-full h-52 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Bánh Trung Thu gửi trọn vị quê hương sang Hàn Quốc')">
+            <img src="YeuNhau/IMG20260713104135.jpg" alt="Hoa" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Bó hoa tốt nghiệp đong đầy tình cảm')">
+            <img src="YeuNhau/IMG20260922170926.jpg" alt="Bánh" class="w-full h-48 sm:h-64 object-cover hover:scale-105 transition-all cursor-pointer" onclick="openModal(this.src, 'Bánh Trung Thu gửi trọn vị quê hương sang Hàn Quốc')">
           </div>
-          <p class="text-center font-romantic text-lg sm:text-xl text-pink-200 mt-4">
+          <p class="text-center font-romantic text-base sm:text-xl text-pink-200 mt-3 sm:mt-4">
             "Trao nhau yêu thương vượt qua ranh giới địa lý."
           </p>
         </div>
@@ -415,24 +431,24 @@
     </section>
 
     <!-- EASTER EGG: NÚT CHẠY TRỐN -->
-    <section class="text-center max-w-md mx-auto glass-card p-8 rounded-3xl border border-pink-500/30">
+    <section class="text-center max-w-md mx-auto glass-card p-6 sm:p-8 rounded-3xl border border-pink-500/30">
       <div class="text-3xl mb-3">🥺👉👈</div>
-      <h3 class="text-xl sm:text-2xl font-serif-title font-bold text-white mb-2">
+      <h3 class="text-lg sm:text-2xl font-serif-title font-bold text-white mb-2">
         Vợ Liên có yêu Chồng Luân mãi mãi không?
       </h3>
       <p class="text-xs text-pink-300/80 mb-6">Trả lời thật lòng nha, nút "Không" biết chạy trốn đấy!</p>
 
       <div class="flex items-center justify-center gap-4 relative min-h-[60px]">
-        <button onclick="handleLoveYes()" class="px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full shadow-lg shadow-pink-500/40 hover:scale-110 active:scale-95 transition-all text-sm">
+        <button onclick="handleLoveYes()" class="px-5 sm:px-6 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full shadow-lg shadow-pink-500/40 hover:scale-110 active:scale-95 transition-all text-xs sm:text-sm">
           Yêu Nhiều Lắmmm ❤️
         </button>
-        <button id="runawayBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-6 py-2.5 bg-gray-700/80 text-gray-300 font-semibold rounded-full text-sm transition-all duration-200">
+        <button id="runawayBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-5 sm:px-6 py-2.5 bg-gray-700/80 text-gray-300 font-semibold rounded-full text-xs sm:text-sm transition-all duration-200">
           Hong yêu đâu 😜
         </button>
       </div>
     </section>
 
-    <footer class="text-center mt-20 text-xs text-gray-500">
+    <footer class="text-center mt-20 text-xs text-gray-500 pb-10">
       <p>Made with ❤️ by Duy Luân for Hà Liên</p>
       <p class="mt-1 text-pink-400/60 font-romantic text-sm">Nơi Này Có Anh • Nha Trang ✈️ Seoul • 25/04/2026 - Mãi Mãi</p>
     </footer>
@@ -481,25 +497,28 @@
     const carousel3D = document.getElementById('carousel3D');
     const container = document.getElementById('carouselContainer');
     const totalItems = photoList.length;
-    // Bán kính hình trụ 3D
-    const radius = Math.round((190 / 2) / Math.tan(Math.PI / totalItems)) + 130;
+    // Tự động tính bán kính hình trụ 3D phù hợp với màn hình iPhone / Mobile
+    const isMobile = window.innerWidth < 640;
+    const itemWidth = isMobile ? 150 : 180;
+    const radius = Math.round((itemWidth / 2) / Math.tan(Math.PI / totalItems)) + (isMobile ? 30 : 60);
 
     photoList.forEach((photo, i) => {
       const angle = (360 / totalItems) * i;
       const el = document.createElement('div');
       el.className = 'carousel-item';
       el.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+      el.style.webkitTransform = `rotateY(${angle}deg) translateZ(${radius}px)`;
       el.onclick = () => openModal(photo.src, photo.caption);
       el.innerHTML = `
         <img src="${encodeURI(photo.src)}" alt="Memory" loading="lazy">
-        <div class="absolute bottom-0 inset-x-0 bg-black/70 backdrop-blur-sm p-2 text-[11px] text-pink-200 text-center font-romantic truncate">
+        <div class="absolute bottom-0 inset-x-0 bg-black/75 backdrop-blur-sm p-2 text-[10px] sm:text-[11px] text-pink-200 text-center font-romantic truncate">
           ${photo.caption}
         </div>
       `;
       carousel3D.appendChild(el);
     });
 
-    // Tương tác vuốt xoay 3D bằng cảm ứng điện thoại / chuột
+    // Tương tác vuốt xoay 3D (Hỗ trợ 100% cảm ứng iOS Safari)
     let currAngle = 0;
     let startX = 0;
     let isDragging = false;
@@ -507,8 +526,9 @@
 
     function animateCarousel() {
       if (autoRotate && !isDragging) {
-        currAngle -= 0.18; // Tự xoay 3D nhẹ nhàng
+        currAngle -= 0.16; // Tự xoay 3D nhẹ nhàng
         carousel3D.style.transform = `rotateY(${currAngle}deg)`;
+        carousel3D.style.webkitTransform = `rotateY(${currAngle}deg)`;
       }
       requestAnimationFrame(animateCarousel);
     }
@@ -523,6 +543,7 @@
       const delta = x - startX;
       currAngle += delta * 0.35;
       carousel3D.style.transform = `rotateY(${currAngle}deg)`;
+      carousel3D.style.webkitTransform = `rotateY(${currAngle}deg)`;
       startX = x;
     }
     function handleEnd() {
@@ -536,6 +557,7 @@
     container.addEventListener('touchstart', (e) => handleStart(e.touches[0].clientX), { passive: true });
     window.addEventListener('touchmove', (e) => handleMove(e.touches[0].clientX), { passive: true });
     window.addEventListener('touchend', handleEnd);
+    container.addEventListener('touchcancel', handleEnd);
 
     /* ================= CÁNH HOA ĐÀO RƠI ================= */
     function createSakura() {
@@ -548,28 +570,44 @@
       document.body.appendChild(petal);
       setTimeout(() => petal.remove(), 10000);
     }
-    setInterval(createSakura, 600);
+    setInterval(createSakura, 700);
 
-    /* ================= MỞ PHONG THƯ & PHÁT NHẠC SƠN TÙNG M-TP ================= */
+    /* ================= MỞ PHONG THƯ & PHÁT NHẠC SƠN TÙNG M-TP (TỐI ƯU IPHONE SAFARI) ================= */
     let isPlaying = false;
     const bgMusic = document.getElementById('bgMusic');
     const discVisual = document.getElementById('discVisual');
     const equalizer = document.getElementById('equalizer');
 
     function openLoveGift() {
+      // 1. Kích hoạt phát nhạc ngay lập tức trên cùng luồng touch của Safari
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlaying = true;
+          discVisual.classList.remove('paused');
+          equalizer.classList.remove('hidden');
+        }).catch(err => {
+          console.log("Audio unlock caught:", err);
+          // Dự phòng cho Safari: phát lại khi người dùng chạm vào màn hình tiếp theo
+          document.addEventListener('touchstart', function unlock() {
+            bgMusic.play();
+            isPlaying = true;
+            discVisual.classList.remove('paused');
+            equalizer.classList.remove('hidden');
+            document.removeEventListener('touchstart', unlock);
+          }, { once: true });
+        });
+      }
+
+      // 2. Nổ pháo hoa Confetti
       confetti({
-        particleCount: 160,
+        particleCount: 150,
         spread: 100,
         origin: { y: 0.6 },
         colors: ['#f43f5e', '#ec4899', '#d946ef', '#ffffff', '#fbbf24']
       });
 
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        discVisual.classList.remove('paused');
-        equalizer.classList.remove('hidden');
-      }).catch(err => console.log(err));
-
+      // 3. Mờ dần Intro
       const intro = document.getElementById('introScreen');
       intro.style.opacity = '0';
       setTimeout(() => {
@@ -636,9 +674,10 @@
     /* ================= EASTER EGG ================= */
     const runawayBtn = document.getElementById('runawayBtn');
     function dodgeButton() {
-      const x = Math.random() * 220 - 110;
-      const y = Math.random() * 120 - 60;
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 100 - 50;
       runawayBtn.style.transform = `translate(${x}px, ${y}px)`;
+      runawayBtn.style.webkitTransform = `translate(${x}px, ${y}px)`;
     }
     function handleLoveYes() {
       confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
@@ -658,7 +697,7 @@
       if (e.target.id === 'imageModal') closeModal();
     };
 
-    /* ================= CANVAS TRÁI TIM 3D ================= */
+    /* ================= CANVAS TRÁI TIM 3D (TỐI ƯU PIN CHO IPHONE) ================= */
     const canvas = document.getElementById('heartCanvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -671,10 +710,10 @@
       const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
       return { x: x * scale, y: y * scale };
     }
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 280; i++) {
       particles.push({
         t: Math.random() * Math.PI * 2,
-        scale: 8 + Math.random() * 6,
+        scale: 7 + Math.random() * 6,
         alpha: Math.random() * 0.7 + 0.3,
         speed: Math.random() * 0.02 + 0.01,
         color: Math.random() > 0.3 ? '#f43f5e' : '#ec4899'
