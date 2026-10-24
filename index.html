@@ -118,14 +118,14 @@
     /* Thẻ ảnh mini dạng tinh thể mini polaroid trên vành đai Sao Thổ */
     .asteroid-card {
       position: absolute;
-      width: 38px;
-      height: 52px;
-      margin-left: -19px;
-      margin-top: -26px;
-      border-radius: 6px;
+      width: 32px;
+      height: 44px;
+      margin-left: -16px;
+      margin-top: -22px;
+      border-radius: 5px;
       overflow: hidden;
       border: 1px solid rgba(244, 114, 182, 0.75);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.7), 0 0 8px rgba(236, 72, 153, 0.35);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7), 0 0 6px rgba(236, 72, 153, 0.35);
       background: #111;
       cursor: pointer;
       transform-style: preserve-3d;
@@ -134,11 +134,11 @@
     }
     @media (min-width: 640px) {
       .asteroid-card {
-        width: 50px;
-        height: 68px;
-        margin-left: -25px;
-        margin-top: -34px;
-        border-radius: 8px;
+        width: 44px;
+        height: 60px;
+        margin-left: -22px;
+        margin-top: -30px;
+        border-radius: 7px;
         border-width: 1.5px;
       }
     }
@@ -518,8 +518,8 @@
     const orbitWorld = document.getElementById('orbitWorld');
     const saturnScene = document.getElementById('saturnScene');
     const isMobile = window.innerWidth < 640;
-    const baseRx = isMobile ? 162 : 215; // Bán kính trục ngang
-    const baseRz = isMobile ? 112 : 150; // Bán kính trục sâu
+    const baseRx = isMobile ? 172 : 225; // Bán kính trục ngang
+    const baseRz = isMobile ? 122 : 158; // Bán kính trục sâu
     const totalAsteroids = basePhotos.length; // Đúng 23 kỷ niệm độc bản, không bị san sát đè lên nhau
     const asteroidElements = [];
 
@@ -544,31 +544,31 @@
       asteroidElements.forEach((card, i) => {
         const theta = (2 * Math.PI * i / totalAsteroids) + ringAngle;
         
-        // Phân tầng so le: Thẻ chẵn hơi chếch ra ngoài, thẻ lẻ hơi lùi vào trong tạo dải thiên thạch có chiều sâu
-        const rOffset = (i % 2 === 0 ? 11 : -11);
+        // Phân tầng so le 3 lớp: Giúp các ảnh tách rời nhau tự nhiên, thoáng đãng
+        const rOffset = (i % 3 === 0 ? 16 : (i % 3 === 1 ? -16 : 0));
         const rx = baseRx + rOffset;
-        const rz = baseRz + (rOffset * 0.7);
+        const rz = baseRz + (rOffset * 0.65);
 
         const x = rx * Math.cos(theta);
         const z = rz * Math.sin(theta);
         
         // Độ dốc nghiêng vành đai Sao Thổ kèm dao động bồng bềnh tự nhiên (floating wave)
-        const floatWave = Math.sin(ringAngle * 2.2 + i * 0.85) * 6;
-        const y = z * 0.36 + floatWave;
+        const floatWave = Math.sin(ringAngle * 2.2 + i * 0.85) * 5;
+        const y = z * 0.44 + floatWave;
 
-        // ẢNH HOÀN TOÀN DỰNG ĐỨNG, XOAY THEO QUỸ ĐẠO ELIP, NGHIÊNG NHẸ TỰ NHIÊN
-        const rotY = - (theta * 180 / Math.PI) + 90;
-        const tiltZ = (i % 2 === 0 ? 3 : -3);
+        // GÓC NHÌN THANH THOÁT: Hướng về người xem với độ cong 3D thanh nhã (không bị quay ngang 90 độ)
+        const faceAngle = - Math.sin(theta) * 36;
+        const tiltZ = (i % 2 === 0 ? 4 : -4);
         
-        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${tiltZ}deg)`;
-        card.style.webkitTransform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${tiltZ}deg)`;
+        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${faceAngle}deg) rotateZ(${tiltZ}deg)`;
+        card.style.webkitTransform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${faceAngle}deg) rotateZ(${tiltZ}deg)`;
         card.style.zIndex = Math.round(z + 500);
 
         // Chiều sâu sáng/tối: Ảnh phía trước (z > 0) sáng rõ, ảnh phía sau lùi vào không gian mờ ảo
-        const maxRz = baseRz + 11;
+        const maxRz = baseRz + 16;
         const depthRatio = (z + maxRz) / (2 * maxRz); // 0 (xa nhất) -> 1 (gần nhất)
-        const brightness = 0.5 + depthRatio * 0.6; // 0.5 -> 1.1
-        const opacity = 0.68 + depthRatio * 0.32; // 0.68 -> 1.0
+        const brightness = 0.55 + depthRatio * 0.55; // 0.55 -> 1.1
+        const opacity = 0.7 + depthRatio * 0.3; // 0.7 -> 1.0
         card.style.filter = `brightness(${brightness})`;
         card.style.opacity = opacity;
       });
