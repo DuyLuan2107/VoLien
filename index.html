@@ -19,18 +19,15 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body {
       width: 100%;
       height: 100%;
-      overflow: hidden; /* Cố định 100vh chuẩn Story Deck, không cuộn tự do */
+      overflow: hidden;
       position: fixed;
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at 50% 15%, #35083a 0%, #13021c 45%, #05000a 100%);
+      background: radial-gradient(circle at 50% 15%, #38083e 0%, #13021c 45%, #05000a 100%);
       color: #fff;
       font-family: 'Montserrat', sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -46,7 +43,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(236, 72, 153, 0.15);
     }
 
-    /* STORY DECK: MỖI CHƯƠNG LÀ 1 MÀN HÌNH 100DVH (TỐI ƯU IPHONE 11) */
+    /* STORY DECK 100DVH (MỖI CHƯƠNG LÀ 1 MÀN HÌNH VỪA KHÍT IPHONE 11) */
     .story-viewport {
       width: 100%;
       height: 100dvh;
@@ -60,7 +57,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 50px 16px 30px 16px;
+      padding: 48px 16px 24px 16px;
       opacity: 0;
       pointer-events: none;
       transform: scale(0.95) translateY(20px);
@@ -72,10 +69,10 @@
       transform: scale(1) translateY(0);
     }
 
-    /* ================= TINH CẦU TÌNH YÊU & VÀNH ĐAI SAO THỔ 3D ================= */
+    /* ================= TINH CẦU TÌNH YÊU & VÀNH ĐAI SAO THỔ DỰNG ĐỨNG 3D ================= */
     .saturn-scene {
-      perspective: 1100px;
-      -webkit-perspective: 1100px;
+      perspective: 1000px;
+      -webkit-perspective: 1000px;
       width: 100%;
       height: 330px;
       position: relative;
@@ -85,21 +82,23 @@
       cursor: grab;
       user-select: none;
       touch-action: pan-y;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
     @media (min-width: 640px) {
-      .saturn-scene { height: 420px; }
+      .saturn-scene { height: 400px; }
     }
     .saturn-scene:active { cursor: grabbing; }
 
-    /* Tinh cầu tình yêu ở tâm */
+    /* Quả cầu tình yêu ở tâm */
     .planet-core {
-      width: 85px;
-      height: 85px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #ff4b72, #be123c 55%, #4c0519 100%);
-      box-shadow: 0 0 45px #f43f5e, 0 0 80px rgba(236, 72, 153, 0.4), inset -8px -8px 20px rgba(0,0,0,0.7);
+      box-shadow: 0 0 50px #f43f5e, 0 0 90px rgba(236, 72, 153, 0.45), inset -8px -8px 20px rgba(0,0,0,0.7);
       position: absolute;
-      z-index: 10;
+      z-index: 50;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -108,43 +107,44 @@
       pointer-events: none;
     }
 
-    /* Vành đai nghiêng 3D đặc trưng Sao Thổ */
-    .saturn-ring {
+    .orbit-world {
       position: absolute;
-      width: 320px;
-      height: 320px;
+      width: 0;
+      height: 0;
       transform-style: preserve-3d;
       -webkit-transform-style: preserve-3d;
-      transform: rotateX(68deg) rotateY(-18deg);
-      -webkit-transform: rotateX(68deg) rotateY(-18deg);
-      border-radius: 50%;
-      border: 1px dashed rgba(244, 114, 182, 0.4);
-      box-shadow: 0 0 35px rgba(236, 72, 153, 0.25);
-    }
-    @media (min-width: 640px) {
-      .saturn-ring { width: 420px; height: 420px; }
     }
 
-    .asteroid-photo {
+    /* Thẻ ảnh DỰNG ĐỨNG trên vành đai Sao Thổ */
+    .asteroid-card {
       position: absolute;
-      width: 65px;
-      height: 90px;
-      border-radius: 10px;
+      width: 52px;
+      height: 70px;
+      margin-left: -26px;
+      margin-top: -35px;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1.5px solid rgba(244, 114, 182, 0.65);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.8), 0 0 12px rgba(236, 72, 153, 0.35);
+      border: 1.5px solid rgba(244, 114, 182, 0.75);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.8), 0 0 10px rgba(236, 72, 153, 0.35);
       background: #111;
       cursor: pointer;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
       transition: filter 0.2s, border-color 0.2s;
     }
     @media (min-width: 640px) {
-      .asteroid-photo { width: 80px; height: 110px; }
+      .asteroid-card {
+        width: 65px;
+        height: 88px;
+        margin-left: -32px;
+        margin-top: -44px;
+      }
     }
-    .asteroid-photo:hover {
-      filter: brightness(1.25);
+    .asteroid-card:hover {
+      filter: brightness(1.3) !important;
       border-color: #f43f5e;
     }
-    .asteroid-photo img {
+    .asteroid-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -179,7 +179,7 @@
       100% { opacity: 0; }
     }
 
-    /* Cánh hoa anh đào */
+    /* Cánh hoa đào rơi */
     .sakura-petal {
       position: fixed;
       pointer-events: none;
@@ -197,7 +197,7 @@
 </head>
 <body>
 
-  <!-- Sao băng vũ trụ -->
+  <!-- Sao băng lướt qua -->
   <div class="shooting-star" style="top: 12%; left: 75%; animation-delay: 1.5s;"></div>
   <div class="shooting-star" style="top: 32%; left: 55%; animation-delay: 4.5s;"></div>
 
@@ -206,7 +206,7 @@
     <source src="music.mp3" type="audio/mp3">
   </audio>
 
-  <!-- THANH TIẾN TRÌNH STORY BARS (5 MÀN NHƯ INSTAGRAM/TIKTOK STORY) -->
+  <!-- THANH TIẾN TRÌNH STORY BARS (5 MÀN) -->
   <div class="fixed top-2.5 inset-x-4 z-40 flex gap-1.5 max-w-md mx-auto">
     <div class="h-1 flex-1 bg-white/20 rounded-full overflow-hidden cursor-pointer" onclick="goToSlide(0)">
       <div id="bar-0" class="h-full bg-pink-500 w-full transition-all duration-300"></div>
@@ -231,9 +231,9 @@
     <span class="text-[11px] text-pink-300 font-medium hidden sm:inline">Nơi Này Có Anh</span>
   </div>
 
-  <!-- NỀN CANVAS TRÁI TIM BỤI SAO -->
+  <!-- NỀN CANVAS TRÁI TIM BỤI SAO DÀY ĐẶC (600 HẠT ÁNH SÁNG) -->
   <div class="fixed inset-0 pointer-events-none z-0">
-    <canvas id="heartCanvas" class="w-full h-full opacity-60"></canvas>
+    <canvas id="heartCanvas" class="w-full h-full opacity-65"></canvas>
   </div>
 
   <!-- ==================== MÀN HÌNH MỞ ĐẦU (INTRO PHONG THƯ TÌNH YÊU) ==================== -->
@@ -301,7 +301,7 @@
           </div>
         </div>
 
-        <!-- Bộ đếm thời gian -->
+        <!-- Bộ đếm thời gian từ 3h sáng 25/04/2026 -->
         <div class="grid grid-cols-4 gap-2 mb-5">
           <div class="glass-card p-2 rounded-xl text-center border-t-2 border-pink-500">
             <div id="daysCount" class="text-xl sm:text-2xl font-bold font-mono text-pink-200">00</div>
@@ -327,7 +327,7 @@
       </div>
     </div>
 
-    <!-- MÀN 2: TINH CẦU TÌNH YÊU & VÀNH ĐAI TIỂU HÀNH TINH 3D (SATURN ASTEROID BELT) -->
+    <!-- MÀN 2: TINH CẦU TÌNH YÊU & VÀNH ĐAI SAO THỔ DỰNG ĐỨNG 3D -->
     <div class="story-slide" id="slide-1">
       <div class="w-full max-w-md mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs mb-1">
@@ -336,144 +336,125 @@
         <h2 class="text-2xl sm:text-3xl font-serif-title font-bold text-white mb-0.5">
           Vành Đai Sao Thổ 🪐
         </h2>
-        <p class="text-[11px] text-pink-300/80 mb-2">
-          👉 <i>Các mảnh ghép ảnh xoay quanh tinh cầu. Vuốt xoay 360° • Chạm để phóng to</i>
+        <p class="text-[11px] sm:text-xs text-pink-200/90 font-romantic mb-2 max-w-sm mx-auto">
+          "Từng mảnh ghép kỷ niệm của chúng mình đang bay quanh trái tim anh nè... Vợ iu vuốt nhẹ để xoay và chạm vào để ngắm lại kỷ niệm nhé ✨"
         </p>
 
-        <!-- KHUNG CẢNH SAO THỔ VỚI VÀNH ĐAI 3D -->
+        <!-- KHUNG CẢNH SAO THỔ VỚI ẢNH DỰNG ĐỨNG 3D -->
         <div class="saturn-scene" id="saturnScene">
           <!-- Tinh cầu tình yêu ở tâm -->
           <div class="planet-core">
             <i class="fa-solid fa-heart text-white text-2xl pulse-heart"></i>
           </div>
 
-          <!-- Vành đai tiểu hành tinh ảnh nghiêng 3D -->
-          <div class="saturn-ring" id="saturnRing">
-            <!-- 23 bức ảnh asteroid sẽ được phân bố elip ở đây -->
+          <!-- Không gian 3D chứa 46 thẻ ảnh DỰNG ĐỨNG -->
+          <div class="orbit-world" id="orbitWorld">
+            <!-- Render 46 thẻ ảnh dựng đứng bằng JavaScript -->
           </div>
         </div>
 
         <div class="flex items-center justify-center gap-3 mt-3">
-          <button onclick="prevSlide()" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300 hover:text-white">
-            ⬅️ Quay lại
+          <button onclick="prevSlide()" class="px-3.5 py-1.5 rounded-full glass-card text-xs text-gray-300 hover:text-white">
+            ⬅️ Quay lại nè
           </button>
-          <button onclick="nextSlide()" class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-xs shadow-lg shadow-pink-600/40">
-            Xem Cặp Đôi Đồng Điệu 💕 ➡️
+          <button onclick="nextSlide()" class="px-4 py-2 rounded-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-xs shadow-lg shadow-pink-600/40">
+            Xem những khoảnh khắc đồng điệu của tụi mình 💕 ➡️
           </button>
         </div>
       </div>
     </div>
 
-    <!-- MÀN 3: CẶP ĐÔI ĐỒNG ĐIỆU (COUPLE SYNC) -->
+    <!-- MÀN 3: ĐÚNG 5 CẶP ĐÔI ĐỒNG ĐIỆU (COUPLE SYNC) -->
     <div class="story-slide" id="slide-2">
-      <div class="w-full max-w-lg mx-auto text-center">
+      <div class="w-full max-w-md mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs mb-1">
           <i class="fa-solid fa-link"></i> Màn 3/5: Đồng Điệu Cử Chỉ
         </div>
         <h2 class="text-2xl sm:text-3xl font-serif-title font-bold text-white mb-0.5">
           Khoảnh Khắc Cặp Đôi 💕
         </h2>
-        <p class="text-[11px] text-pink-200/80 mb-3">
-          Cùng một nụ cười, cùng một ánh mắt dù cách xa nửa vòng trái đất.
+        <p class="text-[11px] text-pink-200/90 font-romantic mb-3">
+          Dù cách xa 3.650 km, từng nụ cười, cử chỉ của hai đứa mình luôn đồng điệu thế này đây!
         </p>
 
-        <div class="grid grid-cols-2 gap-2.5 mb-4 text-left">
-          <div class="glass-card p-2 rounded-2xl border border-pink-500/30">
-            <div class="flex items-center justify-between text-[9px] text-pink-300 mb-1 px-1">
-              <span>🇻🇳 Luân</span><i class="fa-solid fa-heart text-pink-400"></i><span>🇰🇷 Liên</span>
-            </div>
-            <div class="grid grid-cols-2 gap-1 rounded-xl overflow-hidden">
-              <img src="YeuNhau/IMG_20261020_221108.jpg" alt="Luân" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Chồng Luân mỉm cười ấm áp')">
-              <img src="YeuNhau/IMG_20261020_221126.jpg" alt="Liên" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Vợ Liên rạng rỡ từ Seoul')">
-            </div>
+        <!-- KHUNG HIỂN THỊ CẶP ĐÔI CHỌN LỌC (CAROUSEL 5 CẶP ĂN KHỚP CHUẨN) -->
+        <div class="glass-card p-3 rounded-2xl border border-pink-500/30 mb-3 relative overflow-hidden">
+          <div id="pairContainer" class="relative">
+            <!-- Render 5 cặp bằng JS -->
           </div>
-          <div class="glass-card p-2 rounded-2xl border border-pink-500/30">
-            <div class="flex items-center justify-between text-[9px] text-pink-300 mb-1 px-1">
-              <span>📱 Call 1</span><i class="fa-solid fa-heart text-pink-400"></i><span>📱 Call 2</span>
+
+          <!-- Nút chuyển giữa 5 cặp đôi -->
+          <div class="flex items-center justify-between mt-3 px-1">
+            <button onclick="prevPair()" class="px-2.5 py-1 rounded-full bg-white/10 text-[11px] text-pink-300 hover:bg-white/20">
+              <i class="fa-solid fa-chevron-left mr-1"></i> Cặp trước
+            </button>
+            <div id="pairDots" class="flex gap-1.5">
+              <!-- Dots -->
             </div>
-            <div class="grid grid-cols-2 gap-1 rounded-xl overflow-hidden">
-              <img src="YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 1" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Cuộc gọi thâu đêm')">
-              <img src="YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg" alt="Call 2" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Nụ cười chữa lành')">
-            </div>
-          </div>
-          <div class="glass-card p-2 rounded-2xl border border-pink-500/30">
-            <div class="flex items-center justify-between text-[9px] text-pink-300 mb-1 px-1">
-              <span>📸 Pose 1</span><i class="fa-solid fa-heart text-pink-400"></i><span>📸 Pose 2</span>
-            </div>
-            <div class="grid grid-cols-2 gap-1 rounded-xl overflow-hidden">
-              <img src="YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg" alt="Pose 1" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Cử chỉ đáng yêu của vợ Liên')">
-              <img src="YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg" alt="Pose 2" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Hạnh phúc đong đầy')">
-            </div>
-          </div>
-          <div class="glass-card p-2 rounded-2xl border border-pink-500/30">
-            <div class="flex items-center justify-between text-[9px] text-pink-300 mb-1 px-1">
-              <span>🎓 Hoa</span><i class="fa-solid fa-heart text-pink-400"></i><span>🥮 Bánh</span>
-            </div>
-            <div class="grid grid-cols-2 gap-1 rounded-xl overflow-hidden">
-              <img src="YeuNhau/IMG20260713104135.jpg" alt="Hoa" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Hoa tốt nghiệp em gửi')">
-              <img src="YeuNhau/IMG20260922170926.jpg" alt="Bánh" class="w-full h-24 sm:h-32 object-cover" onclick="openModal(this.src, 'Bánh Trung Thu anh trao')">
-            </div>
+            <button onclick="nextPair()" class="px-2.5 py-1 rounded-full bg-white/10 text-[11px] text-pink-300 hover:bg-white/20">
+              Cặp tiếp <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
           </div>
         </div>
 
         <div class="flex items-center justify-center gap-3">
-          <button onclick="prevSlide()" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300">
-            ⬅️ Quay lại
+          <button onclick="prevSlide()" class="px-3.5 py-1.5 rounded-full glass-card text-xs text-gray-300">
+            ⬅️ Quay lại nè
           </button>
           <button onclick="nextSlide()" class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-xs shadow-lg shadow-pink-600/40">
-            Đọc Bức Thư Tình 💌 ➡️
+            Đôi lời anh muốn nói 💌 ➡️
           </button>
         </div>
       </div>
     </div>
 
-    <!-- MÀN 4: TÂM THƯ GỬI VỢ LIÊN -->
+    <!-- MÀN 4: ĐÔI LỜI ANH MUỐN NÓI GỬI VỢ LIÊN (THƯ TÌNH CHÍNH XÁC CỦA LUÂN) -->
     <div class="story-slide" id="slide-3">
       <div class="w-full max-w-md mx-auto text-left">
         <div class="text-center mb-2">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs">
-            <i class="fa-solid fa-envelope-open-text"></i> Màn 4/5: Tâm Thư
+            <i class="fa-solid fa-envelope-open-text"></i> Màn 4/5: Đôi Lời Anh Muốn Nói
           </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-pink-500/30 mb-4 relative">
-          <div class="font-romantic text-base sm:text-lg text-pink-100 leading-relaxed min-h-[160px]" id="typewriterText">
-            <!-- Text gõ chữ -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border border-pink-500/30 mb-4 relative max-h-[62vh] overflow-y-auto no-scrollbar">
+          <div class="font-romantic text-base sm:text-lg text-pink-100 leading-relaxed min-h-[220px]" id="typewriterText">
+            <!-- Text gõ chữ chính xác của Luân -->
           </div>
           <div class="mt-3 pt-2.5 border-t border-pink-500/20 flex items-center justify-between text-[11px] text-pink-300/80">
             <span>25/04/2026 - Mãi Mãi</span>
-            <span class="font-bold">Chồng Luân thương vợ Liên ❤️</span>
+            <span class="font-bold text-pink-300">Chồng Luân mãi yêu Vợ Liên ❤️</span>
           </div>
         </div>
 
         <div class="flex items-center justify-center gap-3">
-          <button onclick="prevSlide()" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300">
-            ⬅️ Quay lại
+          <button onclick="prevSlide()" class="px-3.5 py-1.5 rounded-full glass-card text-xs text-gray-300">
+            ⬅️ Quay lại nè
           </button>
           <button onclick="nextSlide()" class="px-5 py-2 rounded-full bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-xs shadow-lg shadow-pink-600/40">
-            Lời Hẹn Ước Tương Lai 💖 ➡️
+            Lời hẹn ước mãi mãi của đôi ta 💖 ➡️
           </button>
         </div>
       </div>
     </div>
 
-    <!-- MÀN 5: LỜI HẸN ƯỚC MÃI MÃI & EASTER EGG -->
+    <!-- MÀN 5: LỜI HẸN ƯỚC MÃI MÃI (VỢ LIÊN IU ANH MÃI MÃI NHÁ) -->
     <div class="story-slide" id="slide-4">
       <div class="w-full max-w-md mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 text-xs mb-2">
           <i class="fa-solid fa-infinity"></i> Màn 5/5: Hẹn Ước Mãi Mãi
         </div>
 
-        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-pink-500/30 mb-5">
-          <div class="text-3xl sm:text-4xl mb-2">🥺👉👈</div>
-          <h3 class="text-lg sm:text-xl font-serif-title font-bold text-white mb-1">
-            Vợ Liên có yêu Chồng Luân mãi mãi không?
+        <div class="glass-card p-6 rounded-3xl border border-pink-500/30 mb-5">
+          <div class="text-4xl mb-2">🥺👉👈</div>
+          <h3 class="text-xl sm:text-2xl font-serif-title font-bold text-white mb-2 leading-tight">
+            Vợ Liên iu anh mãi mãi nhá 💖
           </h3>
-          <p class="text-xs text-pink-300/80 mb-4">Trả lời thật lòng nha, nút "Không" biết chạy trốn đấy!</p>
+          <p class="text-xs text-pink-300/80 mb-5 font-romantic text-sm">Trả lời thật lòng nha, nút "Không" biết chạy trốn đấy!</p>
 
           <div class="flex items-center justify-center gap-3 relative min-h-[50px]">
             <button onclick="handleLoveYes()" class="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full shadow-lg shadow-pink-500/40 hover:scale-110 active:scale-95 transition-all text-xs sm:text-sm">
-              Yêu Nhiều Lắmmm ❤️
+              Yêu Chồng Luân nhiều lắmmm ❤️
             </button>
             <button id="runawayBtn" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-5 py-2.5 bg-gray-700/80 text-gray-300 font-semibold rounded-full text-xs transition-all duration-200">
               Hong yêu đâu 😜
@@ -503,79 +484,171 @@
   </div>
 
   <script>
-    /* ================= 23 BỨC ẢNH VÀO VÀNH ĐAI TIỂU HÀNH TINH ================= */
-    const photos = [
-      { src: "YeuNhau/IMG20260713104135.jpg", caption: "Bó hoa tốt nghiệp em gửi 🎓💐" },
-      { src: "YeuNhau/IMG20260721171037.jpg", caption: "Tình yêu bên anh mọi cột mốc." },
-      { src: "YeuNhau/ChatGPT_Image_20_07_2026.png", caption: "Kỷ niệm ngọt ngào của đôi mình." },
-      { src: "YeuNhau/IMG20260922170926.jpg", caption: "Bánh Trung Thu gửi sang Seoul 🥮" },
-      { src: "YeuNhau/IMG_20261002_201042.jpg", caption: "Ngắm chung một ánh trăng rằm." },
-      { src: "YeuNhau/IMG_20261020_215228.jpg", caption: "Ngọt ngào như tình yêu hai đứa." },
-      { src: "YeuNhau/IMG20260512143125.jpg", caption: "Nha Trang biển xanh gửi nắng ấm 🏖️" },
-      { src: "YeuNhau/IMG_20261020_221108.jpg", caption: "Phố đêm Seoul lung linh 🗼" },
-      { src: "YeuNhau/IMG_20261020_221126.jpg", caption: "Nụ cười rạng rỡ của em." },
-      { src: "YeuNhau/Messenger_creation_0482589F-6F61-4584-9731-2617EBC9BA6D.jpeg", caption: "Nụ cười Facetime ngọt ngào ❤️" },
-      { src: "YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg", caption: "Chuyện trò thâu đêm suốt sáng." },
-      { src: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg", caption: "Ánh mắt làm tan biến mệt mỏi." },
-      { src: "YeuNhau/Messenger_creation_6309E6F4-A988-41D8-87CF-8A9C1449E714.jpeg", caption: "Dáng vẻ đáng yêu khi hờn dỗi." },
-      { src: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg", caption: "Khoảnh khắc đời thường vô giá." },
-      { src: "YeuNhau/Messenger_creation_8D0F4503-CD73-4013-8C4A-913AF4FA691F.jpeg", caption: "Từng cử chỉ đều dễ thương." },
-      { src: "YeuNhau/Messenger_creation_C43FFDE3-B947-4D59-BDB9-F414DE11DC90.jpeg", caption: "Dành riêng cho chồng Luân." },
-      { src: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg", caption: "Bình yên khi thấy em cười." },
-      { src: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg", caption: "Cùng vượt qua ngày nhớ nhung." },
-      { src: "YeuNhau/Messenger_creation_E07EA6FA-7F0D-48BF-BABA-BF1A98074EE5.jpeg", caption: "Lời hứa ngày đoàn tụ." },
-      { src: "YeuNhau/Messenger_creation_E59E966D-6E54-478A-B668-23BF2C23C32D.jpeg", caption: "Luôn đứng sau bảo vệ em." },
-      { src: "YeuNhau/received_1744351716732597.jpeg", caption: "Mãi yêu Vợ Liên! ❤️" },
-      { src: "YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Cuộc gọi đầy ắp tiếng cười." },
-      { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Chung một nhịp đập trái tim." }
+    /* ================= 23 BỨC ẢNH GỐC ================= */
+    const basePhotos = [
+      { src: "YeuNhau/IMG20260713104135.jpg", caption: "Bó hoa tốt nghiệp em gửi - Niềm tự hào của anh 🎓💐" },
+      { src: "YeuNhau/IMG20260721171037.jpg", caption: "Tình yêu của vợ luôn bên cạnh anh trong mọi khoảnh khắc." },
+      { src: "YeuNhau/ChatGPT_Image_20_07_2026.png", caption: "Kỷ niệm ngọt ngào cùng chơi game của hai đứa mình." },
+      { src: "YeuNhau/IMG20260922170926.jpg", caption: "Chiếc bánh Trung Thu gửi sang Seoul sưởi ấm mùa thu 🥮🌕" },
+      { src: "YeuNhau/IMG_20261002_201042.jpg", caption: "Dù xa nhau nhưng cùng ngắm chung một ánh trăng sáng." },
+      { src: "YeuNhau/IMG_20261020_215228.jpg", caption: "Ngọt ngào như tình yêu của Luân và Liên." },
+      { src: "YeuNhau/IMG20260512143125.jpg", caption: "Nha Trang biển xanh gửi nắng ấm sang Seoul cho công chúa 🏖️" },
+      { src: "YeuNhau/IMG_20261020_221108.jpg", caption: "Phố đêm Seoul lung linh qua ánh mắt của em 🗼" },
+      { src: "YeuNhau/IMG_20261020_221126.jpg", caption: "Nụ cười của em là ánh sáng của cuộc đời anh." },
+      { src: "YeuNhau/Messenger_creation_0482589F-6F61-4584-9731-2617EBC9BA6D.jpeg", caption: "Nụ cười rạng rỡ của vợ Liên qua màn hình Facetime ❤️" },
+      { src: "YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg", caption: "Những lần chuyện trò thâu đêm không muốn cúp máy." },
+      { src: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg", caption: "Ánh mắt ngọt ngào làm tan biến mọi mệt mỏi." },
+      { src: "YeuNhau/Messenger_creation_6309E6F4-A988-41D8-87CF-8A9C1449E714.jpeg", caption: "Dáng vẻ đáng yêu của công chúa khi hờn dỗi chồng Luân." },
+      { src: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg", caption: "Từng bức ảnh đời thường gửi nhau mỗi sáng." },
+      { src: "YeuNhau/Messenger_creation_8D0F4503-CD73-4013-8C4A-913AF4FA691F.jpeg", caption: "Mỗi khoảnh khắc nhỏ bé đều vô giá." },
+      { src: "YeuNhau/Messenger_creation_C43FFDE3-B947-4D59-BDB9-F414DE11DC90.jpeg", caption: "Cử chỉ dễ thương chỉ dành riêng cho chồng Luân." },
+      { src: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg", caption: "Hạnh phúc đơn giản là thấy em bình an mỉm cười." },
+      { src: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg", caption: "Cùng nhau vượt qua những ngày nhớ nhung da diết." },
+      { src: "YeuNhau/Messenger_creation_E07EA6FA-7F0D-48BF-BABA-BF1A98074EE5.jpeg", caption: "Lời hứa cho ngày hội ngộ không còn xa nữa." },
+      { src: "YeuNhau/Messenger_creation_E59E966D-6E54-478A-B668-23BF2C23C32D.jpeg", caption: "Chăm chỉ ở Hàn Quốc nhé, anh luôn đứng sau bảo vệ em." },
+      { src: "YeuNhau/received_1744351716732597.jpeg", caption: "Kỷ niệm nửa năm ngọt ngào - Chồng Luân mãi yêu Vợ Liên! ❤️" },
+      { src: "YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Cuộc gọi thâu đêm đầy ắp tiếng cười." },
+      { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Dù xa cách, hai trái tim vẫn chung một nhịp đập." }
     ];
 
-    /* ================= DỰNG VÀNH ĐAI SAO THỔ 3D ELIP ================= */
-    const saturnRing = document.getElementById('saturnRing');
-    const ringScene = document.getElementById('saturnScene');
-    const total = photos.length;
+    /* ================= DỰNG VÀNH ĐAI SAO THỔ DỰNG ĐỨNG 3D (46 ẢNH NHÂN BẢN) ================= */
+    const orbitWorld = document.getElementById('orbitWorld');
+    const saturnScene = document.getElementById('saturnScene');
     const isMobile = window.innerWidth < 640;
-    const rx = isMobile ? 145 : 195; // Bán kính trục ngang elip
-    const ry = isMobile ? 145 : 195; // Bán kính trục dọc elip
+    const rx = isMobile ? 155 : 205; // Trục ngang elip
+    const rz = isMobile ? 105 : 140; // Trục sâu elip
+    const totalAsteroids = 46; // Nhân bản 23 ảnh x 2 = 46 mảnh ghép
+    const asteroidElements = [];
 
-    photos.forEach((photo, i) => {
-      const angle = (2 * Math.PI / total) * i;
+    for (let i = 0; i < totalAsteroids; i++) {
+      const photo = basePhotos[i % basePhotos.length];
       const el = document.createElement('div');
-      el.className = 'asteroid-photo';
-      const x = rx * Math.cos(angle);
-      const y = ry * Math.sin(angle);
-      el.style.left = `calc(50% + ${x}px - ${isMobile ? 32 : 40}px)`;
-      el.style.top = `calc(50% + ${y}px - ${isMobile ? 45 : 55}px)`;
-      el.style.transform = `rotateZ(${-angle * (180/Math.PI)}deg)`;
+      el.className = 'asteroid-card';
       el.onclick = () => openModal(photo.src, photo.caption);
       el.innerHTML = `<img src="${encodeURI(photo.src)}" alt="Memory" loading="lazy">`;
-      saturnRing.appendChild(el);
-    });
+      orbitWorld.appendChild(el);
+      asteroidElements.push(el);
+    }
 
     let ringAngle = 0;
     let isDraggingRing = false;
     let startRingX = 0;
 
-    function animateSaturn() {
+    function renderSaturnOrbit() {
       if (!isDraggingRing) {
-        ringAngle += 0.22;
-        saturnRing.style.transform = `rotateX(68deg) rotateY(-18deg) rotateZ(${ringAngle}deg)`;
-        saturnRing.style.webkitTransform = `rotateX(68deg) rotateY(-18deg) rotateZ(${ringAngle}deg)`;
+        ringAngle += 0.004; // Tự xoay nhẹ nhàng
       }
-      requestAnimationFrame(animateSaturn);
-    }
-    animateSaturn();
+      asteroidElements.forEach((card, i) => {
+        const theta = (2 * Math.PI * i / totalAsteroids) + ringAngle;
+        const x = rx * Math.cos(theta);
+        const z = rz * Math.sin(theta);
+        const y = z * 0.36; // Độ nghiêng vành đai Sao Thổ
 
-    ringScene.addEventListener('touchstart', (e) => { isDraggingRing = true; startRingX = e.touches[0].clientX; }, { passive: true });
-    ringScene.addEventListener('touchmove', (e) => {
+        // ẢNH HOÀN TOÀN DỰNG ĐỨNG, XOAY THEO QUỸ ĐẠO ELIP
+        const rotY = - (theta * 180 / Math.PI) + 90;
+        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg)`;
+        card.style.webkitTransform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg)`;
+        card.style.zIndex = Math.round(z + 500);
+
+        // Chiều sâu sáng/tối tạo hiệu ứng không gian 3D
+        const brightness = 0.55 + (z + rz) / (2 * rz) * 0.55;
+        card.style.filter = `brightness(${brightness})`;
+      });
+      requestAnimationFrame(renderSaturnOrbit);
+    }
+    renderSaturnOrbit();
+
+    // Vuốt xoay 360 độ bằng cảm ứng / chuột
+    saturnScene.addEventListener('touchstart', (e) => { isDraggingRing = true; startRingX = e.touches[0].clientX; }, { passive: true });
+    saturnScene.addEventListener('touchmove', (e) => {
       if (!isDraggingRing) return;
       const delta = e.touches[0].clientX - startRingX;
-      ringAngle += delta * 0.4;
-      saturnRing.style.transform = `rotateX(68deg) rotateY(-18deg) rotateZ(${ringAngle}deg)`;
-      saturnRing.style.webkitTransform = `rotateX(68deg) rotateY(-18deg) rotateZ(${ringAngle}deg)`;
+      ringAngle += delta * 0.008;
       startRingX = e.touches[0].clientX;
     }, { passive: true });
-    ringScene.addEventListener('touchend', () => isDraggingRing = false);
+    saturnScene.addEventListener('touchend', () => isDraggingRing = false);
+
+    saturnScene.addEventListener('mousedown', (e) => { isDraggingRing = true; startRingX = e.clientX; });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDraggingRing) return;
+      const delta = e.clientX - startRingX;
+      ringAngle += delta * 0.008;
+      startRingX = e.clientX;
+    });
+    window.addEventListener('mouseup', () => isDraggingRing = false);
+
+    /* ================= 5 CẶP ĐÔI ĐỒNG ĐIỆU CHUẨN XÁC 100% CỦA LUÂN & LIÊN ================= */
+    const couplePairs = [
+      {
+        title: "Món quà gửi trao yêu thương 🎁",
+        desc: "Bánh Trung Thu anh gửi sang Hàn & Bó hoa tốt nghiệp em gửi về Việt Nam.",
+        img1: "YeuNhau/IMG_20261020_221126.jpg", tag1: "Vợ Liên (Seoul)",
+        img2: "YeuNhau/IMG20260721171037.jpg", tag2: "Chồng Luân (Nha Trang)"
+      },
+      {
+        title: "Cùng giơ ngón tay Like 👍",
+        desc: "Dù cách nhau 3.650 km nhưng cử chỉ lúc nào cũng tâm đầu ý hợp thế này đây!",
+        img1: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg", tag1: "Vợ Liên 👍",
+        img2: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg", tag2: "Chồng Luân 👍"
+      },
+      {
+        title: "Cùng tạo dáng chữ V ✌️",
+        desc: "Cử chỉ nhỏ bé nhưng đồng điệu đến từng khoảnh khắc qua màn hình nhỏ.",
+        img1: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg", tag1: "Vợ Liên ✌️",
+        img2: "YeuNhau/IMG20260512143125.jpg", tag2: "Chồng Luân ✌️"
+      },
+      {
+        title: "Chụp ảnh trước gương 🪞",
+        desc: "Hai đứa ở hai phương trời mà gu chụp ảnh trước gương áo đen y chang nhau nè.",
+        img1: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg", tag1: "Vợ Liên 🪞",
+        img2: "YeuNhau/IMG_20261002_201042.jpg", tag2: "Chồng Luân 🪞"
+      },
+      {
+        title: "Cùng chơi game & xem phim chung 🎮🎬",
+        desc: "Những buổi tối hai đứa cùng cày game và xem phim chung thâu đêm suốt sáng.",
+        img1: "YeuNhau/ChatGPT_Image_20_07_2026.png", tag1: "Tướng Đôi Trong Game 🎮",
+        img2: "YeuNhau/IMG_20261020_221108.jpg", tag2: "Xem Phim Cùng Nhau 🎬"
+      }
+    ];
+
+    let currentPairIdx = 0;
+    const pairContainer = document.getElementById('pairContainer');
+    const pairDots = document.getElementById('pairDots');
+
+    function renderPairs() {
+      pairContainer.innerHTML = '';
+      couplePairs.forEach((pair, idx) => {
+        const div = document.createElement('div');
+        div.className = `pair-card transition-all duration-300 ${idx === currentPairIdx ? 'block' : 'hidden'}`;
+        div.innerHTML = `
+          <div class="flex items-center justify-between text-[11px] text-pink-300 font-semibold mb-2 px-1">
+            <span>${pair.tag1}</span>
+            <span class="text-pink-400 font-romantic text-sm"><i class="fa-solid fa-heart pulse-heart"></i> Đồng điệu</span>
+            <span>${pair.tag2}</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 rounded-xl overflow-hidden bg-black/40">
+            <img src="${encodeURI(pair.img1)}" alt="Pair 1" class="w-full h-36 sm:h-44 object-cover cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img1}', '${pair.title}')">
+            <img src="${encodeURI(pair.img2)}" alt="Pair 2" class="w-full h-36 sm:h-44 object-cover cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img2}', '${pair.title}')">
+          </div>
+          <h4 class="font-bold text-white text-xs sm:text-sm mt-2 text-center text-pink-200">${pair.title}</h4>
+          <p class="font-romantic text-xs sm:text-sm text-pink-100/90 text-center mt-0.5 line-clamp-2 px-2">${pair.desc}</p>
+        `;
+        pairContainer.appendChild(div);
+      });
+
+      // Render dots
+      pairDots.innerHTML = '';
+      couplePairs.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = `w-2 h-2 rounded-full cursor-pointer transition-all ${idx === currentPairIdx ? 'bg-pink-500 w-4' : 'bg-white/30'}`;
+        dot.onclick = () => { currentPairIdx = idx; renderPairs(); };
+        pairDots.appendChild(dot);
+      });
+    }
+    renderPairs();
+
+    function nextPair() { currentPairIdx = (currentPairIdx + 1) % couplePairs.length; renderPairs(); }
+    function prevPair() { currentPairIdx = (currentPairIdx - 1 + couplePairs.length) % couplePairs.length; renderPairs(); }
 
     /* ================= CHUYỂN SLIDE STORY DECK (100DVH) ================= */
     let currentSlide = 0;
@@ -601,7 +674,6 @@
     function nextSlide() { goToSlide(currentSlide + 1); }
     function prevSlide() { goToSlide(currentSlide - 1); }
 
-    // Hỗ trợ vuốt tay chuyển trang trên iPhone
     let touchStartX = 0;
     window.addEventListener('touchstart', (e) => touchStartX = e.touches[0].clientX, { passive: true });
     window.addEventListener('touchend', (e) => {
@@ -612,9 +684,9 @@
       }
     }, { passive: true });
 
-    /* ================= MỞ PHONG THƯ & NHẠC SƠN TÙNG M-TP ================= */
-    let isPlaying = false;
+    /* ================= NHẠC SƠN TÙNG M-TP & MỞ THƯ ================= */
     const bgMusic = document.getElementById('bgMusic');
+    let isPlaying = false;
 
     function openLoveGift() {
       const playPromise = bgMusic.play();
@@ -628,7 +700,7 @@
       }
 
       confetti({
-        particleCount: 150,
+        particleCount: 160,
         spread: 100,
         origin: { y: 0.6 },
         colors: ['#f43f5e', '#ec4899', '#d946ef', '#ffffff', '#fbbf24']
@@ -657,7 +729,7 @@
     }
     setInterval(createSakura, 700);
 
-    /* ================= ĐỒNG HỒ ĐÔI & BỘ ĐẾM ================= */
+    /* ================= ĐỒNG HỒ ĐÔI & BỘ ĐẾM THỜI GIAN ================= */
     function updateClocks() {
       const now = new Date();
       document.getElementById('timeNhaTrang').innerText = new Intl.DateTimeFormat('vi-VN', {
@@ -681,28 +753,38 @@
     }
     setInterval(updateCounter, 1000); updateCounter();
 
-    /* ================= THƯ TÌNH & EASTER EGG ================= */
-    const letter = `Vợ Liên yêu dấu của anh,\n\nNhanh thật đấy, vậy là chúng mình đã cùng nhau đi qua 6 tháng yêu xa rồi. 3.650 cây số và 2 tiếng chênh lệch chưa một giây nào làm vơi đi sự ngọt ngào mà anh dành cho em.\n\nCảm ơn em vì bó hoa tốt nghiệp em gửi từ nơi phương xa, cảm ơn những nụ cười của em qua màn hình Facetime mỗi tối. Dù em ở Seoul tuyết lạnh còn anh ở Nha Trang biển xanh, nơi này luôn có anh! Chờ anh nhé, ngày gặp lại không còn xa đâu... ❤️`;
+    /* ================= BỨC THƯ TÌNH TỰ GÕ CHỮ (ĐÚNG NGUYÊN VĂN CỦA LUÂN) ================= */
+    const letter = `Gửi vợ Liên iu dấu của anh,\n\nNhanh thật đấy vợ ơi, vậy là tụi mình đã cùng nhau đi qua 6 tháng hạnh phúc rồi, dù hiện tại khoảng cách 2 đứa có xa hay có lệch với nhau về thời gian nhưng cũng chưa một giây nào làm vơi đi sự ngọt ngào mà anh dành cho em.\n\nCảm ơn vì những điều tuyệt vời nhất mà em đã dành cho anh, những giây phút những khoảnh khắc được có em bên cạnh thật sự làm anh rất hạnh phúc và ấm áp.\n\nAnh chỉ muốn nói là anh yêu em nhiều lắm, rất rất rất là nhiều. Hiện tại hay là sau này anh đều muốn mỗi ngày thức dậy đều được ngắm nhìn em, được bên cạnh em và cùng em trải qua hết mọi điều trong cuộc sống.\n\nDù em ở Seoul tuyết lạnh còn anh ở Nha Trang biển xanh, thì nơi này luôn có anh! Chờ anh nhé, ngày chúng mình gặp nhau sẽ không còn xa đâu... Mãi yêu em. ❤️`;
     let charIdx = 0;
+    let isTyping = false;
+
     function startTypewriter() {
       const el = document.getElementById('typewriterText');
-      el.innerHTML = ''; charIdx = 0;
+      el.innerHTML = '';
+      charIdx = 0;
+      if (isTyping) return;
+      isTyping = true;
       function type() {
         if (charIdx < letter.length) {
-          el.innerHTML += letter.charAt(charIdx) === '\n' ? '<br>' : letter.charAt(charIdx);
-          charIdx++; setTimeout(type, 35);
+          const char = letter.charAt(charIdx);
+          el.innerHTML += char === '\n' ? '<br>' : char;
+          charIdx++;
+          setTimeout(type, 30);
+        } else {
+          isTyping = false;
         }
       }
       type();
     }
 
+    /* ================= EASTER EGG (VỢ LIÊN IU ANH MÃI MÃI NHÁ) ================= */
     const runawayBtn = document.getElementById('runawayBtn');
     function dodgeButton() {
       runawayBtn.style.transform = `translate(${Math.random()*160 - 80}px, ${Math.random()*80 - 40}px)`;
     }
     function handleLoveYes() {
-      confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
-      alert("Chồng Luân cũng yêu Vợ Liên nhất trần đời! Yêu mãi mãi luôn ❤️");
+      confetti({ particleCount: 220, spread: 130, origin: { y: 0.6 } });
+      alert("Chồng Luân cũng yêu Vợ Liên nhất trần đời! Mãi mãi yêu em ❤️");
     }
 
     function openModal(src, caption) {
@@ -712,7 +794,7 @@
     }
     function closeModal() { document.getElementById('imageModal').classList.add('hidden'); }
 
-    /* ================= NỀN CANVAS TRÁI TIM BỤI SAO ================= */
+    /* ================= NỀN CANVAS TRÁI TIM BỤI SAO DÀY ĐẶC (600 HẠT) ================= */
     const canvas = document.getElementById('heartCanvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -724,13 +806,13 @@
       const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
       return { x: x * scale, y: y * scale };
     }
-    for (let i = 0; i < 240; i++) {
+    for (let i = 0; i < 600; i++) {
       particles.push({
         t: Math.random() * Math.PI * 2,
-        scale: 6 + Math.random() * 5,
-        alpha: Math.random() * 0.7 + 0.3,
+        scale: 6 + Math.random() * 5.5,
+        alpha: Math.random() * 0.75 + 0.25,
         speed: Math.random() * 0.02 + 0.01,
-        color: Math.random() > 0.3 ? '#f43f5e' : '#ec4899'
+        color: Math.random() > 0.3 ? (Math.random() > 0.5 ? '#f43f5e' : '#ec4899') : (Math.random() > 0.5 ? '#ffd1dc' : '#fbbf24')
       });
     }
     let pTime = 0;
@@ -744,6 +826,8 @@
         ctx.save();
         ctx.globalAlpha = p.alpha;
         ctx.fillStyle = p.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color;
         ctx.beginPath();
         ctx.arc(canvas.width / 2 + pt.x, canvas.height / 2 + pt.y, 1.8, 0, Math.PI * 2);
         ctx.fill();
