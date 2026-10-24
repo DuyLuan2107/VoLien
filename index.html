@@ -115,34 +115,37 @@
       -webkit-transform-style: preserve-3d;
     }
 
-    /* Thẻ ảnh DỰNG ĐỨNG trên vành đai Sao Thổ */
+    /* Thẻ ảnh mini dạng tinh thể mini polaroid trên vành đai Sao Thổ */
     .asteroid-card {
       position: absolute;
-      width: 52px;
-      height: 70px;
-      margin-left: -26px;
-      margin-top: -35px;
-      border-radius: 8px;
+      width: 38px;
+      height: 52px;
+      margin-left: -19px;
+      margin-top: -26px;
+      border-radius: 6px;
       overflow: hidden;
-      border: 1.5px solid rgba(244, 114, 182, 0.75);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.8), 0 0 10px rgba(236, 72, 153, 0.35);
+      border: 1px solid rgba(244, 114, 182, 0.75);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7), 0 0 8px rgba(236, 72, 153, 0.35);
       background: #111;
       cursor: pointer;
       transform-style: preserve-3d;
       -webkit-transform-style: preserve-3d;
-      transition: filter 0.2s, border-color 0.2s;
+      transition: filter 0.25s, border-color 0.25s, box-shadow 0.25s;
     }
     @media (min-width: 640px) {
       .asteroid-card {
-        width: 65px;
-        height: 88px;
-        margin-left: -32px;
-        margin-top: -44px;
+        width: 50px;
+        height: 68px;
+        margin-left: -25px;
+        margin-top: -34px;
+        border-radius: 8px;
+        border-width: 1.5px;
       }
     }
     .asteroid-card:hover {
-      filter: brightness(1.3) !important;
+      filter: brightness(1.35) !important;
       border-color: #f43f5e;
+      box-shadow: 0 0 16px rgba(244, 63, 94, 0.7);
     }
     .asteroid-card img {
       width: 100%;
@@ -511,17 +514,17 @@
       { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Dù xa cách, hai trái tim vẫn chung một nhịp đập." }
     ];
 
-    /* ================= DỰNG VÀNH ĐAI SAO THỔ DỰNG ĐỨNG 3D (46 ẢNH NHÂN BẢN) ================= */
+    /* ================= DỰNG VÀNH ĐAI SAO THỔ 3D PHÂN TẦNG SO LE & BỒNG BỀNH (ẢNH MINI, THOÁNG ĐÃNG) ================= */
     const orbitWorld = document.getElementById('orbitWorld');
     const saturnScene = document.getElementById('saturnScene');
     const isMobile = window.innerWidth < 640;
-    const rx = isMobile ? 155 : 205; // Trục ngang elip
-    const rz = isMobile ? 105 : 140; // Trục sâu elip
-    const totalAsteroids = 46; // Nhân bản 23 ảnh x 2 = 46 mảnh ghép
+    const baseRx = isMobile ? 162 : 215; // Bán kính trục ngang
+    const baseRz = isMobile ? 112 : 150; // Bán kính trục sâu
+    const totalAsteroids = basePhotos.length; // Đúng 23 kỷ niệm độc bản, không bị san sát đè lên nhau
     const asteroidElements = [];
 
     for (let i = 0; i < totalAsteroids; i++) {
-      const photo = basePhotos[i % basePhotos.length];
+      const photo = basePhotos[i];
       const el = document.createElement('div');
       el.className = 'asteroid-card';
       el.onclick = () => openModal(photo.src, photo.caption);
@@ -536,23 +539,38 @@
 
     function renderSaturnOrbit() {
       if (!isDraggingRing) {
-        ringAngle += 0.004; // Tự xoay nhẹ nhàng
+        ringAngle += 0.0035; // Tự xoay êm ái
       }
       asteroidElements.forEach((card, i) => {
         const theta = (2 * Math.PI * i / totalAsteroids) + ringAngle;
+        
+        // Phân tầng so le: Thẻ chẵn hơi chếch ra ngoài, thẻ lẻ hơi lùi vào trong tạo dải thiên thạch có chiều sâu
+        const rOffset = (i % 2 === 0 ? 11 : -11);
+        const rx = baseRx + rOffset;
+        const rz = baseRz + (rOffset * 0.7);
+
         const x = rx * Math.cos(theta);
         const z = rz * Math.sin(theta);
-        const y = z * 0.36; // Độ nghiêng vành đai Sao Thổ
+        
+        // Độ dốc nghiêng vành đai Sao Thổ kèm dao động bồng bềnh tự nhiên (floating wave)
+        const floatWave = Math.sin(ringAngle * 2.2 + i * 0.85) * 6;
+        const y = z * 0.36 + floatWave;
 
-        // ẢNH HOÀN TOÀN DỰNG ĐỨNG, XOAY THEO QUỸ ĐẠO ELIP
+        // ẢNH HOÀN TOÀN DỰNG ĐỨNG, XOAY THEO QUỸ ĐẠO ELIP, NGHIÊNG NHẸ TỰ NHIÊN
         const rotY = - (theta * 180 / Math.PI) + 90;
-        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg)`;
-        card.style.webkitTransform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg)`;
+        const tiltZ = (i % 2 === 0 ? 3 : -3);
+        
+        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${tiltZ}deg)`;
+        card.style.webkitTransform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) rotateZ(${tiltZ}deg)`;
         card.style.zIndex = Math.round(z + 500);
 
-        // Chiều sâu sáng/tối tạo hiệu ứng không gian 3D
-        const brightness = 0.55 + (z + rz) / (2 * rz) * 0.55;
+        // Chiều sâu sáng/tối: Ảnh phía trước (z > 0) sáng rõ, ảnh phía sau lùi vào không gian mờ ảo
+        const maxRz = baseRz + 11;
+        const depthRatio = (z + maxRz) / (2 * maxRz); // 0 (xa nhất) -> 1 (gần nhất)
+        const brightness = 0.5 + depthRatio * 0.6; // 0.5 -> 1.1
+        const opacity = 0.68 + depthRatio * 0.32; // 0.68 -> 1.0
         card.style.filter = `brightness(${brightness})`;
+        card.style.opacity = opacity;
       });
       requestAnimationFrame(renderSaturnOrbit);
     }
