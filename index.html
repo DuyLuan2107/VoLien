@@ -340,19 +340,14 @@
           Vành Đai Sao Thổ 🪐
         </h2>
         <p class="text-[11px] sm:text-xs text-pink-200/90 font-romantic mb-2 max-w-sm mx-auto">
-          "Từng mảnh ghép kỷ niệm của chúng mình đang bay quanh trái tim anh nè... Vợ iu vuốt nhẹ để xoay và chạm vào để ngắm lại kỷ niệm nhé ✨"
+          "Từng mảnh ghép kỷ niệm của chúng mình đang bay quanh trái tim anh nè... Baby vuốt nhẹ để xoay và chạm vào để ngắm lại kỷ niệm nhé ✨"
         </p>
 
         <!-- KHUNG CẢNH SAO THỔ VỚI ẢNH DỰNG ĐỨNG 3D -->
         <div class="saturn-scene" id="saturnScene">
-          <!-- Tinh cầu tình yêu ở tâm -->
-          <div class="planet-core">
-            <i class="fa-solid fa-heart text-white text-2xl pulse-heart"></i>
-          </div>
-
-          <!-- Không gian 3D chứa 46 thẻ ảnh DỰNG ĐỨNG -->
+          <!-- Trái tim bụi sao lấp lánh ở tâm được vẽ bằng Canvas hạt hồng dày đặc -->
           <div class="orbit-world" id="orbitWorld">
-            <!-- Render 46 thẻ ảnh dựng đứng bằng JavaScript -->
+            <!-- Render 23 thẻ ảnh dựng đứng bằng JavaScript -->
           </div>
         </div>
 
@@ -487,31 +482,31 @@
   </div>
 
   <script>
-    /* ================= 23 BỨC ẢNH GỐC ================= */
+    /* ================= 23 BỨC ẢNH KỶ NIỆM (CHỈ HIỂN THỊ ẢNH HD) ================= */
     const basePhotos = [
-      { src: "YeuNhau/IMG20260713104135.jpg", caption: "Bó hoa tốt nghiệp em gửi - Niềm tự hào của anh 🎓💐" },
-      { src: "YeuNhau/IMG20260721171037.jpg", caption: "Tình yêu của vợ luôn bên cạnh anh trong mọi khoảnh khắc." },
-      { src: "YeuNhau/ChatGPT_Image_20_07_2026.png", caption: "Kỷ niệm ngọt ngào cùng chơi game của hai đứa mình." },
-      { src: "YeuNhau/IMG20260922170926.jpg", caption: "Chiếc bánh Trung Thu gửi sang Seoul sưởi ấm mùa thu 🥮🌕" },
-      { src: "YeuNhau/IMG_20261002_201042.jpg", caption: "Dù xa nhau nhưng cùng ngắm chung một ánh trăng sáng." },
-      { src: "YeuNhau/IMG_20261020_215228.jpg", caption: "Ngọt ngào như tình yêu của Luân và Liên." },
-      { src: "YeuNhau/IMG20260512143125.jpg", caption: "Nha Trang biển xanh gửi nắng ấm sang Seoul cho công chúa 🏖️" },
-      { src: "YeuNhau/IMG_20261020_221108.jpg", caption: "Phố đêm Seoul lung linh qua ánh mắt của em 🗼" },
-      { src: "YeuNhau/IMG_20261020_221126.jpg", caption: "Nụ cười của em là ánh sáng của cuộc đời anh." },
-      { src: "YeuNhau/Messenger_creation_0482589F-6F61-4584-9731-2617EBC9BA6D.jpeg", caption: "Nụ cười rạng rỡ của vợ Liên qua màn hình Facetime ❤️" },
-      { src: "YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg", caption: "Những lần chuyện trò thâu đêm không muốn cúp máy." },
-      { src: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg", caption: "Ánh mắt ngọt ngào làm tan biến mọi mệt mỏi." },
-      { src: "YeuNhau/Messenger_creation_6309E6F4-A988-41D8-87CF-8A9C1449E714.jpeg", caption: "Dáng vẻ đáng yêu của công chúa khi hờn dỗi chồng Luân." },
-      { src: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg", caption: "Từng bức ảnh đời thường gửi nhau mỗi sáng." },
-      { src: "YeuNhau/Messenger_creation_8D0F4503-CD73-4013-8C4A-913AF4FA691F.jpeg", caption: "Mỗi khoảnh khắc nhỏ bé đều vô giá." },
-      { src: "YeuNhau/Messenger_creation_C43FFDE3-B947-4D59-BDB9-F414DE11DC90.jpeg", caption: "Cử chỉ dễ thương chỉ dành riêng cho chồng Luân." },
-      { src: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg", caption: "Hạnh phúc đơn giản là thấy em bình an mỉm cười." },
-      { src: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg", caption: "Cùng nhau vượt qua những ngày nhớ nhung da diết." },
-      { src: "YeuNhau/Messenger_creation_E07EA6FA-7F0D-48BF-BABA-BF1A98074EE5.jpeg", caption: "Lời hứa cho ngày hội ngộ không còn xa nữa." },
-      { src: "YeuNhau/Messenger_creation_E59E966D-6E54-478A-B668-23BF2C23C32D.jpeg", caption: "Chăm chỉ ở Hàn Quốc nhé, anh luôn đứng sau bảo vệ em." },
-      { src: "YeuNhau/received_1744351716732597.jpeg", caption: "Kỷ niệm nửa năm ngọt ngào - Chồng Luân mãi yêu Vợ Liên! ❤️" },
-      { src: "YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Cuộc gọi thâu đêm đầy ắp tiếng cười." },
-      { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg", caption: "Dù xa cách, hai trái tim vẫn chung một nhịp đập." }
+      { src: "YeuNhau/IMG20260713104135.jpg" },
+      { src: "YeuNhau/IMG20260721171037.jpg" },
+      { src: "YeuNhau/ChatGPT_Image_20_07_2026.png" },
+      { src: "YeuNhau/IMG20260922170926.jpg" },
+      { src: "YeuNhau/IMG_20261002_201042.jpg" },
+      { src: "YeuNhau/IMG_20261020_215228.jpg" },
+      { src: "YeuNhau/IMG20260512143125.jpg" },
+      { src: "YeuNhau/IMG_20261020_221108.jpg" },
+      { src: "YeuNhau/IMG_20261020_221126.jpg" },
+      { src: "YeuNhau/Messenger_creation_0482589F-6F61-4584-9731-2617EBC9BA6D.jpeg" },
+      { src: "YeuNhau/Messenger_creation_0818ED47-A57C-4825-9888-BD4C55E59AD2.jpeg" },
+      { src: "YeuNhau/Messenger_creation_503F99CB-7D12-48D4-AF94-EF3F5BCC2F6B.jpeg" },
+      { src: "YeuNhau/Messenger_creation_6309E6F4-A988-41D8-87CF-8A9C1449E714.jpeg" },
+      { src: "YeuNhau/Messenger_creation_8774050C-19D7-4AE2-9B84-F57BF64C4C86.jpeg" },
+      { src: "YeuNhau/Messenger_creation_8D0F4503-CD73-4013-8C4A-913AF4FA691F.jpeg" },
+      { src: "YeuNhau/Messenger_creation_C43FFDE3-B947-4D59-BDB9-F414DE11DC90.jpeg" },
+      { src: "YeuNhau/Messenger_creation_D1922943-810C-473B-A65C-DBD905E85633.jpeg" },
+      { src: "YeuNhau/Messenger_creation_D3087675-854C-4A01-884C-6E84CD545BE3.jpeg" },
+      { src: "YeuNhau/Messenger_creation_E07EA6FA-7F0D-48BF-BABA-BF1A98074EE5.jpeg" },
+      { src: "YeuNhau/Messenger_creation_E59E966D-6E54-478A-B668-23BF2C23C32D.jpeg" },
+      { src: "YeuNhau/received_1744351716732597.jpeg" },
+      { src: "YeuNhau/Screenshot_2026-06-10-15-07-58-55_be80aec1db9a2b53c9d399db0c602181.jpg" },
+      { src: "YeuNhau/Screenshot_2026-06-11-14-51-38-63_be80aec1db9a2b53c9d399db0c602181.jpg" }
     ];
 
     /* ================= DỰNG VÀNH ĐAI SAO THỔ 3D PHÂN TẦNG SO LE & BỒNG BỀNH (ẢNH MINI, THOÁNG ĐÃNG) ================= */
@@ -527,7 +522,7 @@
       const photo = basePhotos[i];
       const el = document.createElement('div');
       el.className = 'asteroid-card';
-      el.onclick = () => openModal(photo.src, photo.caption);
+      el.onclick = () => openModal(photo.src, '');
       el.innerHTML = `<img src="${encodeURI(photo.src)}" alt="Memory" loading="lazy">`;
       orbitWorld.appendChild(el);
       asteroidElements.push(el);
@@ -805,49 +800,95 @@
       alert("Chồng Luân cũng yêu Vợ Liên nhất trần đời! Mãi mãi yêu em ❤️");
     }
 
-    function openModal(src, caption) {
+    function openModal(src, caption = '') {
       document.getElementById('modalImg').src = encodeURI(src);
-      document.getElementById('modalCaption').innerText = caption;
+      const capEl = document.getElementById('modalCaption');
+      if (caption && caption.trim()) {
+        capEl.innerText = caption;
+        capEl.classList.remove('hidden');
+      } else {
+        capEl.innerText = '';
+        capEl.classList.add('hidden');
+      }
       document.getElementById('imageModal').classList.remove('hidden');
     }
     function closeModal() { document.getElementById('imageModal').classList.add('hidden'); }
 
-    /* ================= NỀN CANVAS TRÁI TIM BỤI SAO DÀY ĐẶC (600 HẠT) ================= */
+    /* ================= NỀN CANVAS TRÁI TIM BỤI SAO HỒNG DÀY ĐẶC (2.200 HẠT HỒNG NGUYÊN BẢN) ================= */
     const canvas = document.getElementById('heartCanvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
-    const particles = [];
-    function getHeartPoint(t, scale) {
+    function getHeartRaw(t) {
       const x = 16 * Math.pow(Math.sin(t), 3);
       const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-      return { x: x * scale, y: y * scale };
+      return { x, y: y + 2.5 };
     }
-    for (let i = 0; i < 600; i++) {
+
+    // 100% SẮC HỒNG & ROSE GLOW (TUYỆT ĐỐI KHÔNG LẪN MÀU VÀNG HAY TRẮNG)
+    const pinkColors = ['#ff2a6d', '#ff528c', '#ff7597', '#f43f5e', '#ec4899', '#fb7185', '#fda4af', '#f472b6', '#e11d48'];
+    const particles = [];
+    const TOTAL_PARTICLES = 2200; // Dày đặc, lấp đầy toàn bộ lòng trái tim
+
+    for (let i = 0; i < TOTAL_PARTICLES; i++) {
+      const t = Math.random() * Math.PI * 2;
+      let rFactor;
+      const type = Math.random();
+      if (type < 0.65) {
+        // 65% hạt lấp đầy toàn bộ bên trong lòng trái tim (Uniform area fill)
+        rFactor = Math.sqrt(Math.random()) * 0.95;
+      } else if (type < 0.90) {
+        // 25% hạt viền ngoài sắc nét, tỏa sáng rực rỡ
+        rFactor = 0.95 + Math.random() * 0.08;
+      } else {
+        // 10% bụi sao hồng lơ lửng xung quanh (Aura)
+        rFactor = 1.05 + Math.random() * 0.35;
+      }
+
       particles.push({
-        t: Math.random() * Math.PI * 2,
-        scale: 6 + Math.random() * 5.5,
-        alpha: Math.random() * 0.75 + 0.25,
-        speed: Math.random() * 0.02 + 0.01,
-        color: Math.random() > 0.3 ? (Math.random() > 0.5 ? '#f43f5e' : '#ec4899') : (Math.random() > 0.5 ? '#ffd1dc' : '#fbbf24')
+        t: t,
+        rFactor: rFactor,
+        baseScale: isMobile ? 4.6 : 5.8,
+        alpha: Math.random() * 0.65 + 0.35,
+        speed: (Math.random() - 0.5) * 0.008,
+        color: pinkColors[Math.floor(Math.random() * pinkColors.length)],
+        size: Math.random() > 0.85 ? 2.0 : 1.3
       });
     }
+
     let pTime = 0;
     function renderHeart() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      pTime += 0.04;
-      const pulse = 1 + 0.08 * Math.sin(pTime);
+      pTime += 0.035;
+      // Nhịp đập trái tim tình yêu (Lub-dub pulse)
+      const beat = Math.pow(Math.sin(pTime * 2.2), 64) * 0.12 + Math.pow(Math.sin(pTime * 2.2 + 0.3), 64) * 0.06;
+      const pulse = 1 + beat;
+
+      // Căn chỉnh tâm trái tim trùng khít với tâm của vành đai Sao Thổ (Màn 2)
+      let cx = canvas.width / 2;
+      let cy = canvas.height / 2;
+      const scene = document.getElementById('saturnScene');
+      if (scene && scene.offsetParent !== null) {
+        const rect = scene.getBoundingClientRect();
+        cx = rect.left + rect.width / 2;
+        cy = rect.top + rect.height / 2;
+      }
+
       particles.forEach(p => {
         p.t += p.speed;
-        const pt = getHeartPoint(p.t, p.scale * pulse);
+        const pt = getHeartRaw(p.t);
+        const curScale = p.baseScale * p.rFactor * pulse;
+        const x = cx + pt.x * curScale;
+        const y = cy + pt.y * curScale;
+
         ctx.save();
         ctx.globalAlpha = p.alpha;
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
         ctx.shadowColor = p.color;
         ctx.beginPath();
-        ctx.arc(canvas.width / 2 + pt.x, canvas.height / 2 + pt.y, 1.8, 0, Math.PI * 2);
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       });
