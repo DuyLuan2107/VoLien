@@ -421,7 +421,7 @@
           </div>
           <div class="mt-3 pt-2.5 border-t border-pink-500/20 flex items-center justify-between text-[11px] text-pink-300/80">
             <span>25/04/2026 - Mãi Mãi</span>
-            <span class="font-bold text-pink-300">Chồng Luân mãi yêu Vợ Liên ❤️</span>
+            <span class="font-bold text-pink-300">Anh mãi yêu em ❤️</span>
           </div>
         </div>
 
@@ -639,9 +639,13 @@
             <span class="text-pink-400 font-romantic text-sm"><i class="fa-solid fa-heart pulse-heart"></i> Đồng điệu</span>
             <span>${pair.tag2}</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 rounded-xl overflow-hidden bg-black/40">
-            <img src="${encodeURI(pair.img1)}" alt="Pair 1" class="w-full h-36 sm:h-44 object-cover cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img1}', '${pair.title}')">
-            <img src="${encodeURI(pair.img2)}" alt="Pair 2" class="w-full h-36 sm:h-44 object-cover cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img2}', '${pair.title}')">
+          <div class="grid grid-cols-2 gap-2 rounded-xl p-1 bg-black/40">
+            <div class="aspect-square sm:aspect-[4/5] rounded-lg overflow-hidden bg-black/60 flex items-center justify-center border border-pink-500/10">
+              <img src="${encodeURI(pair.img1)}" alt="Pair 1" class="w-full h-full object-contain cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img1}', '${pair.title}')">
+            </div>
+            <div class="aspect-square sm:aspect-[4/5] rounded-lg overflow-hidden bg-black/60 flex items-center justify-center border border-pink-500/10">
+              <img src="${encodeURI(pair.img2)}" alt="Pair 2" class="w-full h-full object-contain cursor-pointer hover:scale-105 transition-all" onclick="openModal('${pair.img2}', '${pair.title}')">
+            </div>
           </div>
           <h4 class="font-bold text-white text-xs sm:text-sm mt-2 text-center text-pink-200">${pair.title}</h4>
           <p class="font-romantic text-xs sm:text-sm text-pink-100/90 text-center mt-0.5 line-clamp-2 px-2">${pair.desc}</p>
@@ -767,7 +771,7 @@
     setInterval(updateCounter, 1000); updateCounter();
 
     /* ================= BỨC THƯ TÌNH TỰ GÕ CHỮ (ĐÚNG NGUYÊN VĂN CỦA LUÂN) ================= */
-    const letter = `Gửi vợ Liên iu dấu của anh,\n\nNhanh thật đấy vợ ơi, vậy là tụi mình đã cùng nhau đi qua 6 tháng hạnh phúc rồi, dù hiện tại khoảng cách 2 đứa có xa hay có lệch với nhau về thời gian nhưng cũng chưa một giây nào làm vơi đi sự ngọt ngào mà anh dành cho em.\n\nCảm ơn vì những điều tuyệt vời nhất mà em đã dành cho anh, những giây phút những khoảnh khắc được có em bên cạnh thật sự làm anh rất hạnh phúc và ấm áp.\n\nAnh chỉ muốn nói là anh yêu em nhiều lắm, rất rất rất là nhiều. Hiện tại hay là sau này anh đều muốn mỗi ngày thức dậy đều được ngắm nhìn em, được bên cạnh em và cùng em trải qua hết mọi điều trong cuộc sống.\n\nDù em ở Seoul tuyết lạnh còn anh ở Nha Trang biển xanh, thì nơi này luôn có anh! Chờ anh nhé, ngày chúng mình gặp nhau sẽ không còn xa đâu... Mãi yêu em. ❤️`;
+    const letter = `Gửi vợ Liên iu dấu của anh,\n\nVậy là tụi mình đã cùng nhau đi qua 6 tháng hạnh phúc rồi, cảm ơn vì những điều tuyệt vời nhất mà em đã dành cho anh, những giây phút những khoảnh khắc được có em bên cạnh thật sự làm anh rất hạnh phúc và ấm áp.\n\nAnh chỉ muốn nói là anh yêu em nhiều lắm, rất rất rất là nhiều. Hiện tại hay là sau này anh đều muốn mỗi ngày thức dậy đều được ngắm nhìn em, được bên cạnh em và cùng em trải qua hết mọi điều trong cuộc sống.\n\nDù em ở Seoul tuyết lạnh còn anh ở Nha Trang biển xanh, thì nơi này luôn có anh! Chờ anh nhé, ngày chúng mình gặp nhau sẽ không còn xa đâu... Mãi yêu em. ❤️`;
     let charIdx = 0;
     let isTyping = false;
 
